@@ -27,11 +27,11 @@ export function MosqueMark({ className = "h-9 w-9" }: { className?: string }) {
   );
 }
 
-export function LanguageToggle() {
+export function LanguageToggle({ large = false }: { large?: boolean }) {
   const { lang, setLang } = useLanguage();
   return (
     <div
-      className="flex items-center overflow-hidden rounded-full border border-black/10 text-xs font-bold"
+      className={`flex items-center overflow-hidden rounded-full border border-black/10 font-bold ${large ? "text-sm" : "text-xs"}`}
       role="group"
       aria-label="Language / اللغة"
     >
@@ -39,7 +39,7 @@ export function LanguageToggle() {
         type="button"
         onClick={() => setLang("en")}
         aria-pressed={lang === "en"}
-        className={`px-2 py-1.5 transition sm:px-2.5 ${lang === "en" ? "bg-pine text-white" : "text-ink hover:bg-pine/10"}`}
+        className={`${large ? "px-5 py-2.5" : "px-2 py-1.5 sm:px-2.5"} transition ${lang === "en" ? "bg-pine text-white" : "text-ink hover:bg-pine/10"}`}
       >
         EN
       </button>
@@ -47,7 +47,7 @@ export function LanguageToggle() {
         type="button"
         onClick={() => setLang("ar")}
         aria-pressed={lang === "ar"}
-        className={`px-2 py-1.5 transition sm:px-2.5 ${lang === "ar" ? "bg-pine text-white" : "text-ink hover:bg-pine/10"}`}
+        className={`${large ? "px-5 py-2.5" : "px-2 py-1.5 sm:px-2.5"} transition ${lang === "ar" ? "bg-pine text-white" : "text-ink hover:bg-pine/10"}`}
       >
         عربي
       </button>
@@ -141,7 +141,9 @@ export function Header() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
-            <LanguageToggle />
+            <div className="hidden md:block">
+              <LanguageToggle />
+            </div>
             <button
               type="button"
               aria-label={t("search")}
@@ -181,6 +183,10 @@ export function Header() {
 
         {menuOpen && (
           <nav aria-label="Mobile menu" className="menu-drop border-t border-black/5 bg-surface px-4 pb-4 pt-2 lg:hidden">
+            <div className="mb-1 flex items-center justify-between gap-3 border-b border-black/5 px-3 pb-3 pt-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-ink-soft">Language / اللغة</span>
+              <LanguageToggle large />
+            </div>
             {NAV.map((item) => (
               <Link
                 key={item.href}
