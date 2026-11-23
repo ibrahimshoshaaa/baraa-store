@@ -99,24 +99,24 @@ export function Header() {
   return (
     <>
       {/* Top bar */}
-      <div className="bg-pine text-[11px] font-medium tracking-wide text-white/90 sm:text-xs">
-        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-4 py-2 sm:justify-between sm:gap-6">
-          <span className="flex items-center gap-1.5">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" /><circle cx="7" cy="17" r="1.6" /><circle cx="17" cy="17" r="1.6" /></svg>
+      <div className="bg-pine text-[10px] font-medium tracking-wide text-white/90 sm:text-xs">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2 sm:gap-6 sm:px-4">
+          <span className="flex items-center gap-1.5 whitespace-nowrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="hidden shrink-0 sm:block"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" /><circle cx="7" cy="17" r="1.6" /><circle cx="17" cy="17" r="1.6" /></svg>
             {t("topFreeShipping")}
           </span>
-          <span className="hidden items-center gap-1.5 sm:flex">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9" /><path d="M3 4v5h5" /></svg>
+          <span className="flex items-center gap-1.5 whitespace-nowrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="hidden shrink-0 sm:block"><path d="M3 12a9 9 0 1 0 9-9" /><path d="M3 4v5h5" /></svg>
             {t("topEasyReturn")}
           </span>
-          <span className="hidden items-center gap-1.5 md:flex">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" /></svg>
+          <span className="flex items-center gap-1.5 whitespace-nowrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="hidden shrink-0 sm:block"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" /></svg>
             {t("topTrusted")}
           </span>
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-black/10 bg-cream shadow-[0_2px_12px_rgba(11,61,46,0.08)]">
+      <header className="sticky top-0 z-40 bg-cream">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3">
           <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2" aria-label={t("storeName")}>
             <MosqueMark className="h-7 w-7 shrink-0 sm:h-9 sm:w-9" />

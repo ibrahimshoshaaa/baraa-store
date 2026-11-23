@@ -36,51 +36,52 @@ export default function HomePage() {
 
   return (
     <div className="fade-up">
-      {/* Hero — compact on mobile: eyebrow, tight title, sub, CTA row, then a
-          compact image card. Headline + CTA + image fit ~one viewport. */}
-      <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-6 sm:gap-10 sm:pt-10 lg:grid-cols-2 lg:pb-14 lg:pt-16">
-        <div>
-          <p className="text-[13px] font-semibold tracking-wide text-pine-mid">{t("heroEyebrow")}</p>
-          <h1 className="mt-2.5 font-display text-[2.15rem] font-bold leading-[1.08] text-pine sm:text-5xl lg:text-[3.5rem]">
+      {/* Hero — split 2-column layout like the reference design, on every
+          screen: typography + single CTA on the left, frameless product
+          image on the right. The image is uncropped (natural aspect, no
+          card/border/shadow) and blends into the cream background; its
+          bottom edge meets the trust bar below. */}
+      <section className="mx-auto grid max-w-6xl grid-cols-[1.05fr_0.95fr] items-end gap-2 px-4 pb-0 pt-5 sm:gap-8 sm:pt-10 lg:grid-cols-2 lg:pt-12">
+        <div className="flex flex-col justify-center pb-8 sm:pb-12">
+          <p className="text-[11px] font-semibold tracking-wide text-pine-mid sm:text-[13px]">{t("heroEyebrow")}</p>
+          <h1 className="mt-2 font-display text-[1.55rem] font-bold leading-[1.1] text-pine sm:text-4xl lg:text-[3.5rem] lg:leading-[1.08]">
             {t("heroTitleA")}
             <span className="block italic text-gold">{t("heroTitleB")}</span>
           </h1>
-          <p className="mt-3.5 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-4 sm:text-lg">
+          <p className="mt-3 max-w-md text-[13px] leading-relaxed text-ink-soft sm:text-lg">
             {t("heroSub")}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 sm:mt-6">
+          <div className="mt-4 sm:mt-6">
             <Link href="/shop" className="btn btn-primary">
               {t("shopNow")} →
-            </Link>
-            <Link
-              href="/shop"
-              className="text-sm font-bold text-pine underline decoration-gold decoration-2 underline-offset-4 transition hover:text-pine-mid"
-            >
-              {t("browseAllCategories")} →
             </Link>
           </div>
         </div>
         <div className="relative">
-          <div
-            aria-hidden="true"
-            className="absolute -inset-2.5 hidden rounded-[36px] border border-gold/40 lg:block lg:rounded-b-[36px] lg:rounded-t-[240px]"
+          {/* Art direction: the full tall portrait on phones, the 4:5 crop
+              (arch + hanger + kurta, like the design) on tablet/desktop. */}
+          <Image
+            src="/images/hero-kurta.jpg"
+            alt={t("heroTitleA")}
+            width={1120}
+            height={2240}
+            className="block h-auto w-full sm:hidden"
+            priority
           />
-          <div className="relative overflow-hidden rounded-[24px] shadow-[var(--shadow-hero)] lg:rounded-b-[28px] lg:rounded-t-[220px]">
-            <Image
-              src="/images/hero-kurta.jpg"
-              alt={t("heroTitleA")}
-              width={900}
-              height={1100}
-              className="aspect-[4/3] w-full object-cover sm:aspect-[16/10] lg:aspect-[4/5]"
-              priority
-            />
-          </div>
+          <Image
+            src="/images/hero-kurta-hero.jpg"
+            alt={t("heroTitleA")}
+            width={1120}
+            height={1400}
+            className="hidden h-auto w-full sm:block"
+            priority
+          />
         </div>
       </section>
 
-      {/* Trust strip — a clean card below the hero (no overlap), hairline
-          dividers between items, 2x2 on mobile, one row of 4 on desktop. */}
-      <section className="mx-auto max-w-6xl px-4 pb-2">
+      {/* Trust strip — floating card overlapping the hero bottom edge, like
+          the design; 2x2 on mobile, one row of 4 on desktop. */}
+      <section className="relative z-10 mx-auto -mt-8 max-w-6xl px-4 pb-2 sm:-mt-12">
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[20px] border border-black/5 bg-black/5 shadow-[var(--shadow-card)] sm:grid-cols-4">
           {TRUST.map((item) => (
             <div key={item.key} className="flex items-center gap-3 bg-surface px-4 py-4">
