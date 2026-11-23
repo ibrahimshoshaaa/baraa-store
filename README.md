@@ -33,7 +33,9 @@ npm start
 
 ## Live demo
 
-_TODO: add the Vercel URL after deploying._
+https://baraa-store.vercel.app
+
+GitHub: https://github.com/ibrahimshoshaaa/baraa-store
 
 ## Project structure
 
