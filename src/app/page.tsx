@@ -37,15 +37,17 @@ export default function HomePage() {
   return (
     <div className="fade-up">
       {/* Hero — split 2-column layout like the reference design, on every
-          screen: typography + single CTA on the left, frameless product
-          image on the right. The image is uncropped (natural aspect, no
-          card/border/shadow) and blends into the cream background; its
-          bottom edge meets the trust bar below. */}
-      <section className="mx-auto grid max-w-6xl grid-cols-[1.05fr_0.95fr] items-center gap-2 px-4 pb-0 pt-5 sm:gap-8 sm:pt-10 lg:grid-cols-2 lg:pt-12">
-        <div className="flex flex-col justify-center">
+          screen. The image bleeds to the right edge of the container and
+          spans the full hero height (navbar → trust bar); a gradient mask
+          dissolves its left/top edges into the cream background. The text
+          column overlaps slightly into the faded edge. Headline is an
+          oversized 3-line stack: Islamic / Clothing / for Every You. */}
+      <section className="mx-auto grid max-w-6xl grid-cols-[1.05fr_0.95fr] items-center gap-2 pb-0 pl-4 pr-0 sm:gap-4 lg:grid-cols-2">
+        <div className="relative z-10 flex flex-col justify-center lg:-mr-6">
           <p className="text-[11px] font-semibold tracking-wide text-pine-mid sm:text-[13px]">{t("heroEyebrow")}</p>
-          <h1 className="mt-2 font-display text-[1.55rem] font-bold leading-[1.1] text-pine sm:text-4xl lg:text-[3.5rem] lg:leading-[1.08]">
-            {t("heroTitleA")}
+          <h1 className="mt-2 font-display text-[1.9rem] font-bold leading-[1.05] text-pine sm:text-5xl md:text-6xl lg:text-7xl">
+            <span className="block">{t("heroTitleA1")}</span>
+            <span className="block">{t("heroTitleA2")}</span>
             <span className="block italic text-gold">{t("heroTitleB")}</span>
           </h1>
           <p className="mt-3 max-w-md text-[13px] leading-relaxed text-ink-soft sm:text-lg">
@@ -57,12 +59,12 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="relative">
+        <div className="relative hero-img-mask">
           {/* Art direction: the full tall portrait on phones, the 4:5 crop
               (arch + hanger + kurta, like the design) on tablet/desktop. */}
           <Image
             src="/images/hero-kurta.jpg"
-            alt={t("heroTitleA")}
+            alt={t("heroTitleA1") + " " + t("heroTitleA2")}
             width={1120}
             height={2240}
             className="block h-auto w-full sm:hidden"
@@ -70,7 +72,7 @@ export default function HomePage() {
           />
           <Image
             src="/images/hero-kurta-hero.jpg"
-            alt={t("heroTitleA")}
+            alt={t("heroTitleA1") + " " + t("heroTitleA2")}
             width={1120}
             height={1400}
             className="hidden h-auto w-full sm:block"
@@ -100,7 +102,7 @@ export default function HomePage() {
       <section className="section pb-0 text-center">
         <p className="eyebrow justify-center">{t("categoriesEyebrow")}</p>
         <h2 className="section-title mt-3">{t("categoriesTitle")}</h2>
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:mt-10 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:grid-cols-5 sm:gap-4">
           {CATEGORIES.map((c) => (
             <Link
               key={c.slug}
@@ -116,8 +118,8 @@ export default function HomePage() {
                   sizes="(max-width: 640px) 50vw, 20vw"
                 />
               </span>
-              <span className="block p-4">
-                <span className="block font-display text-base font-bold text-pine">
+              <span className="block p-3">
+                <span className="block font-display text-sm font-bold text-pine sm:text-base">
                   {lang === "ar" ? c.nameAr : c.name}
                 </span>
               </span>
