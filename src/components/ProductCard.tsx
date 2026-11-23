@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { ShoppingBag, Star } from "lucide-react";
 import { categoryName, formatPrice, productName, type Product } from "@/lib/catalog";
 import { useLanguage } from "@/lib/i18n";
 import { useCart } from "./CartProvider";
@@ -10,9 +11,12 @@ export function Stars({ rating }: { rating: number }) {
   return (
     <span className="inline-flex items-center gap-0.5 text-gold" aria-label={`Rated ${rating} out of 5`}>
       {[1, 2, 3, 4, 5].map((i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i <= Math.round(rating) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-          <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" />
-        </svg>
+        <Star
+          key={i}
+          className="h-3.5 w-3.5"
+          fill={i <= Math.round(rating) ? "currentColor" : "none"}
+          aria-hidden="true"
+        />
       ))}
     </span>
   );
@@ -24,7 +28,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="card card-hover group flex flex-col overflow-hidden">
-      <Link href={`/product/${product.slug}`} className="relative block aspect-[3/4] overflow-hidden bg-cream-deep sm:aspect-[4/5]">
+      <Link href={`/product/${product.slug}`} className="relative block aspect-[3/4] overflow-hidden bg-sand">
         <Image
           src={product.image}
           alt={productName(product, lang)}
@@ -61,10 +65,10 @@ export function ProductCard({ product }: { product: Product }) {
                 image: product.image,
               })
             }
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pine text-white shadow-[var(--shadow-button)] transition hover:scale-105 hover:bg-pine-mid"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-pine text-white transition hover:bg-pine-mid"
             aria-label={`${t("addToBag")} — ${productName(product, lang)}`}
           >
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+            <ShoppingBag className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       </div>

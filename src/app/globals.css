@@ -16,10 +16,10 @@
   --radius-pill: 999px;
 
   /* Shadow scale — soft, layered, never harsh */
-  --shadow-card: 0 1px 2px rgba(11, 61, 46, 0.05), 0 8px 24px rgba(11, 61, 46, 0.06);
-  --shadow-card-hover: 0 2px 4px rgba(11, 61, 46, 0.06), 0 16px 40px rgba(11, 61, 46, 0.12);
-  --shadow-hero: 0 24px 60px rgba(11, 61, 46, 0.2);
-  --shadow-button: 0 10px 24px rgba(11, 61, 46, 0.22);
+  --shadow-card: 0 1px 2px rgba(21, 59, 43, 0.05), 0 8px 24px rgba(21, 59, 43, 0.06);
+  --shadow-card-hover: 0 2px 4px rgba(21, 59, 43, 0.06), 0 16px 40px rgba(21, 59, 43, 0.12);
+  --shadow-hero: 0 24px 60px rgba(21, 59, 43, 0.2);
+  --shadow-button: 0 10px 24px rgba(21, 59, 43, 0.22);
 
   /* Type scale */
   --text-body: 1rem;
@@ -28,18 +28,21 @@
 
 @theme {
   --color-cream: #fbf9f5;
-  --color-cream-deep: #f8f5ee;
+  --color-cream-deep: #f3efe6;
+  --color-sand: #efece6;
+  --color-sand-soft: #f3efe6;
+  --color-line: #eae5dc;
   --color-surface: #fffdf7;
-  --color-ink: #12261d;
-  --color-ink-soft: #55685d;
-  --color-pine: #0b3d2e;
-  --color-pine-deep: #072a1f;
-  --color-pine-mid: #0e4d38;
+  --color-ink: #112a1e;
+  --color-ink-soft: #5c6660;
+  --color-pine: #153b2b;
+  --color-pine-deep: #0e291e;
+  --color-pine-mid: #1e4a38;
   --color-gold: #c59b27;
   --color-gold-light: #d4af37;
   --color-gold-soft: #f0e3b2;
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-body: "Jost", "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Plus Jakarta Sans", "DM Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Hero image edge blend: the left edge (22%) and top (12%) of the hero
@@ -79,7 +82,7 @@ h3,
 
 /* Arabic: Cairo for body and headings when the document is RTL. */
 [dir="rtl"] body {
-  font-family: "Cairo", "Jost", "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Cairo", "Plus Jakarta Sans", "DM Sans", "Helvetica Neue", Arial, sans-serif;
 }
 [dir="rtl"] h1,
 [dir="rtl"] h2,
@@ -163,7 +166,7 @@ h3,
   justify-content: center;
   gap: 0.5rem;
   min-height: 48px;
-  padding: 0.8rem 1.75rem;
+  padding: 0.625rem 1.5rem;
   border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-weight: 600;
@@ -192,22 +195,32 @@ h3,
 }
 .btn-gold {
   background: var(--color-gold);
-  color: var(--color-pine-deep);
-  font-weight: 700;
-  box-shadow: 0 10px 24px rgba(201, 162, 39, 0.35);
+  color: var(--color-ink);
+  font-weight: 500;
+  box-shadow: 0 10px 24px rgba(197, 155, 39, 0.35);
 }
 .btn-gold:hover {
   background: var(--color-gold-light);
   transform: translateY(-1px);
 }
+/* Inverted pill: white on dark brand banners. */
+.btn-inverted {
+  background: #fff;
+  color: var(--color-pine);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+.btn-inverted:hover {
+  background: var(--color-cream);
+  transform: translateY(-1px);
+}
 .btn-outline {
   background: transparent;
   color: var(--color-pine);
-  border-color: rgba(11, 61, 46, 0.25);
+  border-color: rgba(21, 59, 43, 0.25);
 }
 .btn-outline:hover {
   border-color: var(--color-pine);
-  background: rgba(11, 61, 46, 0.06);
+  background: rgba(21, 59, 43, 0.06);
 }
 .btn-sm {
   min-height: 44px;
@@ -219,7 +232,7 @@ h3,
 
 .card {
   background: var(--color-surface);
-  border: 1px solid rgba(11, 61, 46, 0.06);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
 }
@@ -245,7 +258,7 @@ h3,
   transition: background-color 0.2s ease;
 }
 .icon-btn:hover {
-  background: rgba(11, 61, 46, 0.08);
+  background: rgba(21, 59, 43, 0.08);
 }
 
 /* ---------- Forms ---------- */
@@ -255,7 +268,7 @@ h3,
   height: 48px;
   padding-inline: 1rem;
   border-radius: 16px;
-  border: 1px solid rgba(11, 61, 46, 0.15);
+  border: 1px solid rgba(21, 59, 43, 0.15);
   background: #fff;
   font-size: 0.95rem;
   color: var(--color-ink);
@@ -269,13 +282,17 @@ h3,
 }
 .input:focus {
   border-color: var(--color-pine);
-  box-shadow: 0 0 0 3px rgba(11, 61, 46, 0.12);
+  box-shadow: 0 0 0 3px rgba(21, 59, 43, 0.12);
 }
 textarea.input {
   height: auto;
   min-height: 96px;
   padding-block: 0.75rem;
   resize: vertical;
+}
+/* Pill input: newsletter / subscribe fields. */
+.input-pill {
+  border-radius: var(--radius-pill);
 }
 
 /* Filter pill (shop). */
@@ -285,7 +302,7 @@ textarea.input {
   min-height: 44px;
   padding: 0.55rem 1rem;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(11, 61, 46, 0.12);
+  border: 1px solid rgba(21, 59, 43, 0.12);
   background: var(--color-surface);
   color: var(--color-ink);
   font-size: 0.875rem;
@@ -299,7 +316,7 @@ textarea.input {
 }
 .chip:hover {
   border-color: var(--color-pine);
-  background: rgba(11, 61, 46, 0.06);
+  background: rgba(21, 59, 43, 0.06);
 }
 .chip-active {
   background: var(--color-pine);

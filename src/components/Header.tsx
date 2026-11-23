@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { Menu, RotateCcw, Search, ShoppingBag, Star, Truck, X } from "lucide-react";
 import { useCart } from "./CartProvider";
 import { useLanguage } from "@/lib/i18n";
 import { CATEGORIES, PRODUCTS, categoryName, formatPrice, productName } from "@/lib/catalog";
@@ -20,8 +21,8 @@ export function MosqueMark({ className = "h-9 w-9" }: { className?: string }) {
         d="M10 44V26.5c0-1 .8-1.9 1.9-1.9h1.6c.6-4.6 3.4-8.6 7.4-10.8V11h6.2v2.8c4 2.2 6.8 6.2 7.4 10.8h1.6c1.1 0 1.9.9 1.9 1.9V44H10Z"
         fill="#d4af37"
       />
-      <path d="M24 22.5a4 4 0 0 1 4 4v9.5h-8v-9.5a4 4 0 0 1 4-4Z" fill="#0b3d2e" />
-      <path d="M14.5 32.5h3v5.5h-3zM30.5 32.5h3v5.5h-3z" fill="#0b3d2e" />
+      <path d="M24 22.5a4 4 0 0 1 4 4v9.5h-8v-9.5a4 4 0 0 1 4-4Z" fill="#153b2b" />
+      <path d="M14.5 32.5h3v5.5h-3zM30.5 32.5h3v5.5h-3z" fill="#153b2b" />
       <path d="M8 44h32v2.5H8z" fill="#d4af37" />
     </svg>
   );
@@ -100,17 +101,19 @@ export function Header() {
     <>
       {/* Top bar */}
       <div className="bg-pine text-[10px] font-medium tracking-wide text-white/90 sm:text-xs">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2 sm:gap-6 sm:px-4">
+        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-3 py-2 sm:gap-3 sm:px-4">
           <span className="flex items-center gap-1.5 whitespace-nowrap">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="hidden shrink-0 sm:block"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" /><circle cx="7" cy="17" r="1.6" /><circle cx="17" cy="17" r="1.6" /></svg>
+            <Truck className="hidden h-3.5 w-3.5 shrink-0 sm:block" aria-hidden="true" />
             {t("topFreeShipping")}
           </span>
+          <span className="hidden text-white/40 sm:inline" aria-hidden="true">|</span>
           <span className="flex items-center gap-1.5 whitespace-nowrap">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="hidden shrink-0 sm:block"><path d="M3 12a9 9 0 1 0 9-9" /><path d="M3 4v5h5" /></svg>
+            <RotateCcw className="hidden h-3.5 w-3.5 shrink-0 sm:block" aria-hidden="true" />
             {t("topEasyReturn")}
           </span>
+          <span className="hidden text-white/40 sm:inline" aria-hidden="true">|</span>
           <span className="flex items-center gap-1.5 whitespace-nowrap">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="hidden shrink-0 sm:block"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" /></svg>
+            <Star className="hidden h-3.5 w-3.5 shrink-0 fill-current sm:block" aria-hidden="true" />
             {t("topTrusted")}
           </span>
         </div>
@@ -150,7 +153,7 @@ export function Header() {
               onClick={() => setSearchOpen(true)}
               className="icon-btn"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+              <Search className="h-5 w-5" aria-hidden="true" />
             </button>
             <button
               type="button"
@@ -158,7 +161,7 @@ export function Header() {
               className="icon-btn relative"
               aria-label={`${t("openBag")}, ${count}`}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+              <ShoppingBag className="h-5 w-5" aria-hidden="true" />
               {count > 0 && (
                 <span className="absolute -end-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-gold text-[11px] font-bold text-pine-deep">
                   {count}
@@ -173,9 +176,9 @@ export function Header() {
               className="icon-btn lg:hidden"
             >
               {menuOpen ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                <X className="h-5 w-5" aria-hidden="true" />
               ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+                <Menu className="h-5 w-5" aria-hidden="true" />
               )}
             </button>
           </div>

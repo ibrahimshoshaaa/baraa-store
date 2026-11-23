@@ -3,6 +3,17 @@
 // Baraa — home page: every section of the original design, in order.
 import Image from "next/image";
 import Link from "next/link";
+import {
+  ArrowRight,
+  BadgeCheck,
+  ChevronLeft,
+  ChevronRight,
+  Headphones,
+  RotateCcw,
+  ShieldCheck,
+  Truck,
+  type LucideIcon,
+} from "lucide-react";
 import { useState } from "react";
 import { CATEGORIES, PRODUCTS, BLOG_POSTS, blogTitle } from "@/lib/catalog";
 import { useLanguage } from "@/lib/i18n";
@@ -10,18 +21,18 @@ import { ProductCard, Stars } from "@/components/ProductCard";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { MosqueMark } from "@/components/Header";
 
-const TRUST = [
-  { key: "trustPremium" as const, icon: "M12 2l2.4 2.4 3.4-.5 1.2 3.2 3.2 1.2-.5 3.4L24 14.1l-2.4 2.4.5 3.4-3.2 1.2-1.2 3.2-3.4-.5L12 26.2 9.6 23.8 6.2 24.3 5 21.1 1.8 19.9l.5-3.4L0 14.1l2.4-2.4-.5-3.4 3.2-1.2 1.2-3.2 3.4.5L12 2Zm-1.2 12.6 6.5-6.5 1.6 1.6-8.1 8.1-3.4-3.4 1.6-1.6 1.8 1.8Z" },
-  { key: "trustShipping" as const, icon: "M3 7h11v10H3zM14 10h4l3 3v4h-7zM7 17a1.6 1.6 0 1 0 0 3.2A1.6 1.6 0 0 0 7 17Zm10 0a1.6 1.6 0 1 0 0 3.2A1.6 1.6 0 0 0 17 17Z" },
-  { key: "trustReturns" as const, icon: "M12 3a9 9 0 1 0 9 9h-2.4A6.6 6.6 0 1 1 12 5.4c1.5 0 2.9.5 4 1.4L13.5 9.3h6.9V2.4L18 4.8A8.9 8.9 0 0 0 12 3Zm-1 5h2v5.5l4 2.4-1 1.6L11 15V8Z" },
-  { key: "trustSecure" as const, icon: "M12 2 4 5.5v5.7c0 5 3.4 8.6 8 10.3 4.6-1.7 8-5.3 8-10.3V5.5L12 2Zm-1.2 14.6-3.4-3.4 1.6-1.6 1.8 1.8 4.7-4.7 1.6 1.6-6.3 6.3Z" },
+const TRUST: { key: "trustPremium" | "trustShipping" | "trustReturns" | "trustSecure"; icon: LucideIcon }[] = [
+  { key: "trustPremium", icon: BadgeCheck },
+  { key: "trustShipping", icon: Truck },
+  { key: "trustReturns", icon: RotateCcw },
+  { key: "trustSecure", icon: ShieldCheck },
 ];
 
-const WHY = [
-  { key: "trustPremium" as const, icon: "M12 2 19 6v6c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-4Zm0 4.2L8.5 8v4c0 3.2 1.8 5.7 3.5 6.9 1.7-1.2 3.5-3.7 3.5-6.9V8L12 6.2Z" },
-  { key: "whyFast" as const, icon: "M3 7h11v10H3zM14 10h4l3 3v4h-7zM7 17a1.6 1.6 0 1 0 0 3.2A1.6 1.6 0 0 0 7 17Zm10 0a1.6 1.6 0 1 0 0 3.2A1.6 1.6 0 0 0 17 17Z" },
-  { key: "whySupport" as const, icon: "M12 3a9 9 0 0 0-8.6 11.6L2 20l5.6-1.3A9 9 0 1 0 12 3Zm-4.6 8.2a1.2 1.2 0 1 1 2.4 0 1.2 1.2 0 0 1-2.4 0Zm4.6 0a1.2 1.2 0 1 1 2.4 0 1.2 1.2 0 0 1-2.4 0Zm4.6 0a1.2 1.2 0 1 1 2.4 0 1.2 1.2 0 0 1-2.4 0Z" },
-  { key: "whySecure" as const, icon: "M12 2 4 5.5v5.7c0 5 3.4 8.6 8 10.3 4.6-1.7 8-5.3 8-10.3V5.5L12 2Zm-1.2 14.6-3.4-3.4 1.6-1.6 1.8 1.8 4.7-4.7 1.6 1.6-6.3 6.3Z" },
+const WHY: { key: "trustPremium" | "whyFast" | "whySupport" | "whySecure"; icon: LucideIcon }[] = [
+  { key: "trustPremium", icon: BadgeCheck },
+  { key: "whyFast", icon: Truck },
+  { key: "whySupport", icon: Headphones },
+  { key: "whySecure", icon: ShieldCheck },
 ];
 
 const TESTIMONIALS = [
@@ -45,7 +56,7 @@ export default function HomePage() {
       <section className="mx-auto grid max-w-6xl grid-cols-[1.05fr_0.95fr] items-center gap-2 pb-0 pl-4 pr-0 sm:gap-4 lg:grid-cols-2">
         <div className="relative z-10 flex flex-col justify-center lg:-mr-6">
           <p className="text-[11px] font-semibold tracking-wide text-pine-mid sm:text-[13px]">{t("heroEyebrow")}</p>
-          <h1 className="mt-2 font-display text-[1.9rem] font-bold leading-[1.05] text-pine sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="mt-2 font-display text-[1.9rem] font-bold leading-[1.05] tracking-tight text-pine sm:text-5xl md:text-6xl lg:text-7xl">
             <span className="block">{t("heroTitleA1")}</span>
             <span className="block">{t("heroTitleA2")}</span>
             <span className="block italic text-gold">{t("heroTitleB")}</span>
@@ -55,7 +66,7 @@ export default function HomePage() {
           </p>
           <div className="mt-4 sm:mt-6">
             <Link href="/shop" className="btn btn-primary">
-              {t("shopNow")} →
+              {t("shopNow")} <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -81,20 +92,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Trust strip — floating card overlapping the hero bottom edge, like
-          the design; 2x2 on mobile, one row of 4 on desktop. */}
+      {/* Trust strip — floating white card overlapping the hero bottom edge;
+          4 equal columns with hairline dividers, sage icon badge ABOVE each
+          centered label; 2x2 on mobile. */}
       <section className="relative z-10 mx-auto -mt-8 max-w-6xl px-4 pb-2 sm:-mt-12">
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[20px] border border-black/5 bg-black/5 shadow-[var(--shadow-card)] sm:grid-cols-4">
-          {TRUST.map((item) => (
-            <div key={item.key} className="flex items-center gap-3 bg-surface px-4 py-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pine/10 text-pine">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d={item.icon} />
-                </svg>
-              </span>
-              <span className="text-sm font-semibold leading-snug">{t(item.key)}</span>
-            </div>
-          ))}
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line shadow-sm sm:grid-cols-4">
+          {TRUST.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.key} className="flex flex-col items-center gap-2 bg-white px-3 py-4 text-center">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pine/10 text-pine">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span className="text-sm font-semibold leading-snug">{t(item.key)}</span>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -107,9 +120,9 @@ export default function HomePage() {
             <Link
               key={c.slug}
               href={`/shop?category=${c.slug}`}
-              className="card card-hover group overflow-hidden text-start"
+              className="card card-hover group overflow-hidden text-center"
             >
-              <span className="relative block aspect-square overflow-hidden bg-cream-deep">
+              <span className="relative block aspect-[3/4] overflow-hidden bg-sand">
                 <Image
                   src={c.image}
                   alt={lang === "ar" ? c.nameAr : c.name}
@@ -127,7 +140,7 @@ export default function HomePage() {
           ))}
         </div>
         <Link href="/shop" className="btn btn-primary mt-8">
-          {t("browseAllCategories")} →
+          {t("browseAllCategories")} <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
         </Link>
       </section>
 
@@ -135,19 +148,20 @@ export default function HomePage() {
       <section className="section pb-0 text-center">
         <p className="eyebrow justify-center">{t("featuredEyebrow")}</p>
         <h2 className="section-title mt-3">{t("featuredTitle")}</h2>
-        <div className="mt-8 grid grid-cols-2 gap-4 text-start sm:mt-10 sm:gap-5 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-6 text-start sm:mt-10 md:grid-cols-3">
           {featured.map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}
         </div>
         <Link href="/shop" className="btn btn-primary mt-8">
-          {t("viewMoreProducts")} →
+          {t("viewMoreProducts")} <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
         </Link>
       </section>
 
-      {/* Dark green banner — mosque photo on the left, text on the right */}
+      {/* Dark green banner — mosque photo blended into the green on its
+          inner edge, white headline center, inverted white pill CTA right. */}
       <section className="section pb-0">
-        <div className="flex flex-col overflow-hidden rounded-[28px] bg-pine shadow-[var(--shadow-hero)] sm:flex-row">
+        <div className="flex flex-col overflow-hidden rounded-2xl bg-pine shadow-[var(--shadow-hero)] sm:flex-row">
           <div className="relative min-h-[220px] sm:w-2/5">
             <Image
               src="/images/mosque.jpg"
@@ -156,20 +170,27 @@ export default function HomePage() {
               className="object-cover"
               sizes="(max-width: 640px) 100vw, 40vw"
             />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-b from-transparent via-[#153b2b]/60 to-[#153b2b] sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"
+            />
           </div>
-          <div className="flex flex-1 flex-col items-center justify-center px-6 py-12 text-center text-white sm:px-12 sm:py-16">
+          <div className="flex flex-1 flex-col items-center justify-center px-6 py-10 text-center text-white sm:px-8 sm:py-14">
             <h2 className="font-display text-3xl font-bold leading-snug sm:text-4xl">{t("bannerTitle")}</h2>
             <p className="mt-3 max-w-md leading-relaxed text-white/80">{t("bannerSub")}</p>
-            <Link href="/shop" className="btn btn-gold mt-7">
-              {t("exploreCollection")} →
+          </div>
+          <div className="flex shrink-0 items-center justify-center px-6 pb-10 sm:px-0 sm:pb-0 sm:pe-10">
+            <Link href="/shop" className="btn btn-inverted">
+              {t("exploreCollection")} <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Newsletter strip */}
+      {/* Stay connected strip — soft cream bar, dome icon + text left,
+          inline pill email input + dark subscribe pill right. */}
       <section className="section pb-0">
-        <div className="card flex flex-col items-center gap-5 p-6 sm:flex-row sm:justify-between sm:gap-8 sm:p-8">
+        <div className="flex flex-col items-center gap-4 rounded-xl border border-line bg-sand-soft/70 px-6 py-4 sm:flex-row sm:justify-between sm:gap-8">
           <div className="flex items-center gap-4 text-center sm:text-start">
             <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/15">
               <MosqueMark className="h-9 w-9" />
@@ -185,65 +206,76 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why choose us */}
-      <section className="section grid items-center gap-10 pb-0 lg:grid-cols-2">
+      {/* Why choose us — 60/40 split; 4 compact features in one row left,
+          frameless edge-blended thobe portrait right. */}
+      <section className="section grid items-center gap-10 pb-0 lg:grid-cols-[1.5fr_1fr]">
         <div>
           <p className="eyebrow eyebrow-start">{t("whyEyebrow")}</p>
           <h2 className="section-title mt-3">{t("whyTitle")}</h2>
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-            {WHY.map((item) => (
-              <div
-                key={item.key}
-                className="card flex flex-col items-center p-4 text-center sm:p-5"
-              >
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pine/10 text-pine">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d={item.icon} />
-                  </svg>
-                </span>
-                <p className="mt-3 text-[13px] font-bold leading-snug">{t(item.key)}</p>
-              </div>
-            ))}
+            {WHY.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.key}
+                  className="flex flex-col items-center p-4 text-center"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-sand-soft text-pine">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <p className="mt-3 text-[13px] font-bold leading-snug">{t(item.key)}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
-        <div className="relative overflow-hidden rounded-[28px] shadow-[var(--shadow-hero)]">
+        <div className="relative hero-img-mask">
           <Image
             src="/images/man-thobe.jpg"
             alt={t("whyTitle")}
-            width={900}
-            height={1000}
-            className="aspect-[4/3] w-full object-cover lg:aspect-[4/5]"
+            width={1280}
+            height={1920}
+            className="block h-auto w-full"
           />
         </div>
       </section>
 
-      {/* Special offer banner — arch photo left, lanterns right (desktop);
-          on mobile the photos become full-width bands above and below the text */}
+      {/* Special offer banner — arch photo left, lanterns right, both blended
+          into the green with gradient overlays; gold pill CTA center. */}
       <section className="section pb-0">
-        <div className="relative overflow-hidden rounded-[28px] bg-pine text-center text-white ring-1 ring-inset ring-gold/25">
+        <div className="relative overflow-hidden rounded-2xl bg-pine text-center text-white ring-1 ring-inset ring-gold/25">
           <div className="relative h-40 sm:hidden">
             <Image src="/images/mosque.jpg" alt="" fill className="object-cover" sizes="100vw" />
+            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-transparent to-[#153b2b]" />
           </div>
           <div className="absolute inset-y-0 start-0 hidden w-1/4 sm:block">
             <Image src="/images/mosque.jpg" alt="" fill className="object-cover" sizes="25vw" />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-[#153b2b]/60 to-[#153b2b] rtl:bg-gradient-to-l"
+            />
           </div>
           <div className="absolute inset-y-0 end-0 hidden w-1/4 sm:block">
             <Image src="/images/lantern.jpg" alt="" fill className="object-cover" sizes="25vw" />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-l from-transparent via-[#153b2b]/60 to-[#153b2b] rtl:bg-gradient-to-r"
+            />
           </div>
-          <div className="relative z-10 px-6 py-12 sm:px-12 sm:py-14">
+          <div className="relative z-10 mx-auto max-w-lg px-6 py-10 sm:px-8 sm:py-12">
             <p className="text-[13px] font-semibold uppercase tracking-[0.2em] text-gold-light">
               {t("offerEyebrow")}
             </p>
-            <h2 className="mt-2 font-display text-[2.5rem] font-bold leading-none sm:text-5xl">
-              {t("offerTitle")}
+            <h2 className="mt-2 font-display text-[2.5rem] font-bold leading-[1.1] sm:text-5xl">
+              {t("offerTitle")} {t("offerSub")}
             </h2>
-            <p className="mt-3 text-lg text-white/85">{t("offerSub")}</p>
             <Link href="/shop" className="btn btn-gold mt-7">
-              {t("shopNow")} →
+              {t("shopNow")} <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
             </Link>
           </div>
           <div className="relative h-40 sm:hidden">
             <Image src="/images/lantern.jpg" alt="" fill className="object-cover" sizes="100vw" />
+            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-transparent to-[#153b2b]" />
           </div>
         </div>
       </section>
@@ -277,7 +309,7 @@ export default function HomePage() {
                   href={`/blog/${post.slug}`}
                   className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-pine transition hover:text-gold"
                 >
-                  {t("readMore")} <span aria-hidden="true">→</span>
+                  {t("readMore")} <ArrowRight className="h-3.5 w-3.5 rtl:-scale-x-100" aria-hidden="true" />
                 </Link>
               </div>
             </article>
@@ -333,34 +365,37 @@ export default function HomePage() {
               type="button"
               onClick={() => setTestimonial((v) => (v + 2) % 3)}
               aria-label="Previous testimonial"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-start-5 sm:top-1/2 sm:-translate-y-1/2"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-start-5 sm:top-1/2 sm:-translate-y-1/2"
             >
-              ‹
+              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
             </button>
             <button
               type="button"
               onClick={() => setTestimonial((v) => (v + 1) % 3)}
               aria-label="Next testimonial"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-end-5 sm:top-1/2 sm:-translate-y-1/2"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-end-5 sm:top-1/2 sm:-translate-y-1/2"
             >
-              ›
+              <ChevronRight className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
         </div>
       </section>
 
-      {/* Join our community */}
+      {/* Join our community — night-mosque photo blended into the green
+          on the left, title + subtext + gold subscribe on the right. */}
       <section className="section">
-        <div className="relative overflow-hidden rounded-[28px] px-6 py-14 text-center text-white sm:px-12 sm:py-20">
-          <Image src="/images/mosque-dusk.jpg" alt="" fill className="object-cover" sizes="100vw" />
-          <div
-            className="absolute inset-0 bg-gradient-to-b from-pine/70 via-pine/80 to-pine-deep/90"
-            aria-hidden="true"
-          />
-          <div className="relative z-10 mx-auto max-w-xl">
+        <div className="relative flex flex-col overflow-hidden rounded-t-2xl bg-pine text-white sm:flex-row md:rounded-2xl">
+          <div className="relative h-48 sm:h-auto sm:min-h-[320px] sm:w-2/5">
+            <Image src="/images/mosque-dusk.jpg" alt="" fill className="object-cover" sizes="(max-width: 640px) 100vw, 40vw" />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-b from-transparent via-[#153b2b]/60 to-[#153b2b] sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"
+            />
+          </div>
+          <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 py-12 text-center sm:px-10 sm:py-16">
             <h2 className="font-display text-3xl font-bold sm:text-4xl">{t("joinTitle")}</h2>
             <p className="mt-3 leading-relaxed text-white/85">{t("joinSub")}</p>
-            <div className="mx-auto mt-7 max-w-md">
+            <div className="mx-auto mt-7 w-full max-w-md">
               <NewsletterForm dark />
             </div>
           </div>

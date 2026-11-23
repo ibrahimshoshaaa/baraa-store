@@ -34,7 +34,7 @@ export function NewsletterForm({ dark = false }: { dark?: boolean }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder={t("emailPlaceholder")}
-        className={`input ${dark ? "" : "focus:border-pine"}`}
+        className={`input input-pill ${dark ? "" : "focus:border-pine"}`}
       />
       <button
         type="submit"
