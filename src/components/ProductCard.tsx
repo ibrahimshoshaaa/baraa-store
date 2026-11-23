@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { categoryName, formatPrice, productBadge, productName, type Product } from "@/lib/catalog";
+import { categoryName, formatPrice, productName, type Product } from "@/lib/catalog";
 import { useLanguage } from "@/lib/i18n";
 import { useCart } from "./CartProvider";
 
@@ -21,7 +21,6 @@ export function Stars({ rating }: { rating: number }) {
 export function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { lang, t } = useLanguage();
-  const badge = productBadge(product, lang);
 
   return (
     <article className="group overflow-hidden rounded-[24px] bg-surface shadow-[0_6px_24px_rgba(11,61,46,0.07)] transition hover:shadow-[0_14px_36px_rgba(11,61,46,0.14)]">
@@ -33,16 +32,6 @@ export function ProductCard({ product }: { product: Product }) {
           className="object-cover transition duration-500 group-hover:scale-105"
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
-        {badge && (
-          <span className="absolute start-3 top-3 rounded-full bg-pine px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
-            {badge}
-          </span>
-        )}
-        {product.compareCents && (
-          <span className="absolute end-3 top-3 rounded-full bg-gold px-2.5 py-1 text-[11px] font-bold text-pine-deep">
-            -{Math.round((1 - product.priceCents / product.compareCents) * 100)}%
-          </span>
-        )}
       </Link>
       <div className="p-4">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">
@@ -53,10 +42,6 @@ export function ProductCard({ product }: { product: Product }) {
             {productName(product, lang)}
           </h3>
         </Link>
-        <div className="mt-1 flex items-center gap-1.5">
-          <Stars rating={product.rating} />
-          <span className="text-xs text-ink-soft">({product.reviews} {t("reviews")})</span>
-        </div>
         <div className="mt-3 flex items-center justify-between gap-2">
           <p className="flex items-baseline gap-2">
             <span className="font-display text-lg font-bold text-pine">{formatPrice(product.priceCents)}</span>

@@ -9,16 +9,14 @@ export type Category = {
   nameAr: string;
   slug: string;
   image: string;
-  blurb: string;
-  blurbAr: string;
 };
 
 export const CATEGORIES: Category[] = [
-  { name: "Men's Thobe", nameAr: "ثوب رجالي", slug: "mens-thobe", image: "/images/white-thobe.jpg", blurb: "Classic long robes", blurbAr: "أثواب طويلة كلاسيكية" },
-  { name: "Men's Kurta", nameAr: "كردة رجالي", slug: "mens-kurta", image: "/images/black-kurta.jpg", blurb: "Everyday elegance", blurbAr: "أناقة يومية" },
-  { name: "Men's Panjabi", nameAr: "بنجابي رجالي", slug: "mens-panjabi", image: "/images/beige-panjabi.jpg", blurb: "Light & comfortable", blurbAr: "خفيف ومريح" },
-  { name: "Women's Abaya", nameAr: "عباية نسائية", slug: "womens-abaya", image: "/images/black-abaya.jpg", blurb: "Graceful & modest", blurbAr: "رقي واحتشام" },
-  { name: "Women's Hijab", nameAr: "حجاب نسائي", slug: "womens-hijab", image: "/images/maroon-hijab.jpg", blurb: "Soft premium fabrics", blurbAr: "أقمشة فاخرة ناعمة" },
+  { name: "Men's Thobe", nameAr: "ثوب رجالي", slug: "mens-thobe", image: "/images/white-thobe.jpg" },
+  { name: "Men's Kurta", nameAr: "كردة رجالي", slug: "mens-kurta", image: "/images/black-kurta.jpg" },
+  { name: "Men's Panjabi", nameAr: "بنجابي رجالي", slug: "mens-panjabi", image: "/images/beige-panjabi.jpg" },
+  { name: "Women's Abaya", nameAr: "عباية نسائية", slug: "womens-abaya", image: "/images/black-abaya.jpg" },
+  { name: "Women's Hijab", nameAr: "حجاب نسائي", slug: "womens-hijab", image: "/images/maroon-hijab.jpg" },
 ];
 
 export type Product = {
@@ -28,15 +26,11 @@ export type Product = {
   categorySlug: string;
   priceCents: number;
   compareCents?: number;
-  badge?: string;
-  badgeAr?: string;
   rating: number;
   reviews: number;
   colours: { name: string; nameAr: string; hex: string }[];
   sizes: string[];
   image: string;
-  blurb: string;
-  blurbAr: string;
   description: string;
   descriptionAr: string;
 };
@@ -52,15 +46,11 @@ export const PRODUCTS: Product[] = [
     categorySlug: "mens-thobe",
     priceCents: 3999,
     compareCents: 4999,
-    badge: "Bestseller",
-    badgeAr: "الأكثر مبيعاً",
     rating: 4.9,
     reviews: 312,
     colours: [{ name: "White", nameAr: "أبيض", hex: "#f7f5ef" }],
     sizes: SIZES,
     image: "/images/white-thobe.jpg",
-    blurb: "Crisp, breathable cotton for every day.",
-    blurbAr: "قطن ناعم يتنفس، مثالي لكل يوم.",
     description:
       "Our Classic White Thobe is cut from breathable premium cotton with a clean mandarin collar and a flowing, comfortable drape. A timeless essential — for prayer, for gatherings, for every day.",
     descriptionAr:
@@ -73,15 +63,11 @@ export const PRODUCTS: Product[] = [
     categorySlug: "mens-kurta",
     priceCents: 3499,
     compareCents: 4999,
-    badge: "Bestseller",
-    badgeAr: "الأكثر مبيعاً",
     rating: 4.8,
     reviews: 268,
     colours: [{ name: "Emerald Green", nameAr: "أخضر زمردي", hex: "#0b3d2e" }],
     sizes: SIZES,
     image: "/images/hero-kurta.jpg",
-    blurb: "Deep emerald, tailored comfort.",
-    blurbAr: "أخضر زمردي عميق وراحة مصممة بإتقان.",
     description:
       "The Premium Kurta in deep emerald green — soft, breathable fabric with a tailored fit, mandarin collar and buttoned placket. Dressed up or dressed down, it always looks right.",
     descriptionAr:
@@ -94,15 +80,11 @@ export const PRODUCTS: Product[] = [
     categorySlug: "mens-panjabi",
     priceCents: 3699,
     compareCents: 4899,
-    badge: "New in",
-    badgeAr: "جديد",
     rating: 4.8,
     reviews: 187,
     colours: [{ name: "Beige", nameAr: "بيج", hex: "#e3d3b3" }],
     sizes: SIZES,
     image: "/images/beige-panjabi.jpg",
-    blurb: "Light, airy and effortlessly smart.",
-    blurbAr: "خفيف ومنعش وأنيق دون مجهود.",
     description:
       "A light beige panjabi in soft woven cotton with a small chest pocket and a relaxed, breathable fit. Made for warm days and long evenings alike.",
     descriptionAr:
@@ -120,8 +102,6 @@ export const PRODUCTS: Product[] = [
     colours: [{ name: "Black", nameAr: "أسود", hex: "#1a1a1a" }],
     sizes: SIZES,
     image: "/images/black-kurta.jpg",
-    blurb: "Sharp, simple, always appropriate.",
-    blurbAr: "أنيقة وبسيطة ومناسبة دائماً.",
     description:
       "A classic black kurta in smooth, breathable fabric. Understated and elegant — the one you reach for when you want to look sharp without trying.",
     descriptionAr:
@@ -134,15 +114,11 @@ export const PRODUCTS: Product[] = [
     categorySlug: "womens-abaya",
     priceCents: 4599,
     compareCents: 5999,
-    badge: "Bestseller",
-    badgeAr: "الأكثر مبيعاً",
     rating: 4.9,
     reviews: 421,
     colours: [{ name: "Black", nameAr: "أسود", hex: "#1a1a1a" }],
     sizes: SIZES,
     image: "/images/black-abaya.jpg",
-    blurb: "Graceful flow, premium crepe.",
-    blurbAr: "انسيابية راقية من كريب فاخر.",
     description:
       "A flowing black abaya in premium crepe with long sleeves and a graceful, modest drape. Comfortable all day, elegant in every setting.",
     descriptionAr:
@@ -160,8 +136,6 @@ export const PRODUCTS: Product[] = [
     colours: [{ name: "Maroon", nameAr: "عنابي", hex: "#7a2e3a" }],
     sizes: HIJAB_SIZES,
     image: "/images/maroon-hijab.jpg",
-    blurb: "Soft chiffon, beautiful drape.",
-    blurbAr: "شيفون ناعم بانسيابية جميلة.",
     description:
       "A soft maroon chiffon hijab with a beautiful, easy drape that stays in place. Lightweight, breathable and kind to the skin.",
     descriptionAr:
@@ -179,8 +153,6 @@ export const PRODUCTS: Product[] = [
     colours: [{ name: "White", nameAr: "أبيض", hex: "#f7f5ef" }],
     sizes: SIZES,
     image: "/images/white-panjabi.jpg",
-    blurb: "Fresh, crisp and cool.",
-    blurbAr: "منعش وناصع وبارد.",
     description:
       "A crisp white panjabi in cool, breathable cotton — fresh for summer days, smart for every occasion.",
     descriptionAr:
@@ -193,15 +165,11 @@ export const PRODUCTS: Product[] = [
     categorySlug: "mens-thobe",
     priceCents: 4299,
     compareCents: 5499,
-    badge: "New in",
-    badgeAr: "جديد",
     rating: 4.8,
     reviews: 96,
     colours: [{ name: "Navy", nameAr: "كحلي", hex: "#1e2f4a" }],
     sizes: SIZES,
     image: "/images/navy-thobe.jpg",
-    blurb: "Deep navy, refined finish.",
-    blurbAr: "كحلي عميق بلمسة راقية.",
     description:
       "A deep navy thobe in premium cotton with a refined finish and a comfortable, flowing cut. Quietly elegant.",
     descriptionAr:
@@ -214,15 +182,11 @@ export const PRODUCTS: Product[] = [
     categorySlug: "mens-kurta",
     priceCents: 3899,
     compareCents: 5299,
-    badge: "Limited",
-    badgeAr: "إصدار محدود",
     rating: 4.9,
     reviews: 88,
     colours: [{ name: "Cream", nameAr: "كريمي", hex: "#efe6d4" }],
     sizes: SIZES,
     image: "/images/embroidered-kurta.jpg",
-    blurb: "Subtle gold embroidery, special occasions.",
-    blurbAr: "تطريز ذهبي رقيق للمناسبات الخاصة.",
     description:
       "A cream kurta with delicate gold embroidery around the collar and placket — made for Eid, weddings and special occasions.",
     descriptionAr:
@@ -243,15 +207,8 @@ export function getCategory(slug: string): Category | undefined {
 export function productName(p: Product, lang: Lang): string {
   return lang === "ar" ? p.nameAr : p.name;
 }
-export function productBlurb(p: Product, lang: Lang): string {
-  return lang === "ar" ? p.blurbAr : p.blurb;
-}
 export function productDescription(p: Product, lang: Lang): string {
   return lang === "ar" ? p.descriptionAr : p.description;
-}
-export function productBadge(p: Product, lang: Lang): string | undefined {
-  if (!p.badge) return undefined;
-  return lang === "ar" ? (p.badgeAr ?? p.badge) : p.badge;
 }
 export function colourName(c: { name: string; nameAr: string }, lang: Lang): string {
   return lang === "ar" ? c.nameAr : c.name;
@@ -260,9 +217,6 @@ export function categoryName(slug: string, lang: Lang = "en"): string {
   const c = getCategory(slug);
   if (!c) return slug;
   return lang === "ar" ? c.nameAr : c.name;
-}
-export function categoryBlurb(c: Category, lang: Lang): string {
-  return lang === "ar" ? c.blurbAr : c.blurb;
 }
 
 export function relatedProducts(product: Product, count = 3): Product[] {

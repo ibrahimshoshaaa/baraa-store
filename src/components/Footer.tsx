@@ -20,7 +20,6 @@ export function Footer() {
             </span>
           </Link>
           <p className="mt-4 text-sm">{t("storeTagline")}</p>
-          <p className="mt-2 text-sm text-white/60">{t("storeDescription")}</p>
         </div>
 
         <nav aria-label={t("footerQuickLinks")}>
@@ -82,12 +81,6 @@ export function Footer() {
               </a>
             ))}
           </div>
-          <p className="mt-5 text-sm text-white/60">
-            {t("footerEmailLabel")}{" "}
-            <a href="mailto:hello@baraa.store" className="text-gold-light hover:underline">
-              hello@baraa.store
-            </a>
-          </p>
         </div>
       </div>
 

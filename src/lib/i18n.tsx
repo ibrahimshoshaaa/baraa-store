@@ -21,7 +21,6 @@ const STORAGE_KEY = "baraa-lang";
 const en = {
   storeName: "Baraa",
   storeTagline: "Modest. Elegant. Timeless.",
-  storeDescription: "Premium Islamic clothing crafted for comfort, dignity and style.",
   topFreeShipping: "Free Shipping Worldwide",
   topEasyReturn: "30 Days Easy Return",
   topTrusted: "Trusted by Millions",
@@ -91,7 +90,6 @@ const en = {
   footerRights: "© 2024 Baraa. All Rights Reserved.",
   footerPrivacy: "Privacy Policy",
   footerTerms: "Terms & Conditions",
-  footerEmailLabel: "Questions? Write to us at",
   yourBag: "Your Bag",
   bagEmpty: "Your bag is empty",
   bagEmptySub: "Beautiful modest pieces are waiting for you.",
@@ -186,7 +184,6 @@ const en = {
   contactLocationLabel: "Location",
   contactLocation: "Cairo, Egypt — shipping worldwide",
   home: "Home",
-  priceNote: "Prices in USD. Free shipping on orders over $75.00.",
 } as const;
 
 export type DictKey = keyof typeof en;
@@ -195,7 +192,6 @@ export type DictKey = keyof typeof en;
 const ar: Record<DictKey, string> = {
   storeName: "براء",
   storeTagline: "محتشم. أنيق. خالد.",
-  storeDescription: "ملابس إسلامية فاخرة صُنعت للراحة والكرامة والأناقة.",
   topFreeShipping: "شحن مجاني لجميع أنحاء العالم",
   topEasyReturn: "إرجاع سهل خلال ٣٠ يوماً",
   topTrusted: "موثوق به من الملايين",
@@ -265,7 +261,6 @@ const ar: Record<DictKey, string> = {
   footerRights: "© ٢٠٢٤ براء. جميع الحقوق محفوظة.",
   footerPrivacy: "سياسة الخصوصية",
   footerTerms: "الشروط والأحكام",
-  footerEmailLabel: "أسئلة؟ راسلنا على",
   yourBag: "حقيبتك",
   bagEmpty: "حقيبتك فارغة",
   bagEmptySub: "قطع محتشمة جميلة بانتظارك.",
@@ -360,7 +355,6 @@ const ar: Record<DictKey, string> = {
   contactLocationLabel: "الموقع",
   contactLocation: "القاهرة، مصر — نشحن لجميع أنحاء العالم",
   home: "الرئيسية",
-  priceNote: "الأسعار بالدولار الأمريكي. الشحن مجاني للطلبات فوق ٧٥ دولاراً.",
 };
 
 const dicts: Record<Lang, Record<DictKey, string>> = { en, ar };

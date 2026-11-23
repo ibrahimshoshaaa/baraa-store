@@ -8,7 +8,6 @@ import {
   categoryName,
   colourName,
   formatPrice,
-  productBadge,
   productDescription,
   productName,
   relatedProducts,
@@ -24,7 +23,6 @@ export function ProductDetail({ product }: { product: Product }) {
   const [colour, setColour] = useState(product.colours[0]?.name ?? "");
   const [size, setSize] = useState(product.sizes[0] ?? "M");
   const [qty, setQty] = useState(1);
-  const badge = productBadge(product, lang);
   const related = relatedProducts(product);
 
   function handleAdd() {
@@ -58,11 +56,6 @@ export function ProductDetail({ product }: { product: Product }) {
             className="aspect-[4/5] w-full object-cover"
             priority
           />
-          {badge && (
-            <span className="absolute start-4 top-4 rounded-full bg-pine px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-              {badge}
-            </span>
-          )}
         </div>
 
         <div>
@@ -80,11 +73,6 @@ export function ProductDetail({ product }: { product: Product }) {
             <span className="font-display text-3xl font-bold text-pine">{formatPrice(product.priceCents)}</span>
             {product.compareCents && (
               <span className="text-lg text-ink-soft line-through">{formatPrice(product.compareCents)}</span>
-            )}
-            {product.compareCents && (
-              <span className="rounded-full bg-gold px-2.5 py-1 text-xs font-bold text-pine-deep">
-                -{Math.round((1 - product.priceCents / product.compareCents) * 100)}%
-              </span>
             )}
           </p>
           <p className="mt-4 leading-relaxed text-ink-soft">{productDescription(product, lang)}</p>

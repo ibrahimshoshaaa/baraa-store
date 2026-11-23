@@ -42,7 +42,11 @@ export function NewsletterForm({ dark = false }: { dark?: boolean }) {
       />
       <button
         type="submit"
-        className="shrink-0 rounded-full bg-gold px-7 py-3.5 text-sm font-bold text-pine-deep transition hover:bg-gold-light"
+        className={`shrink-0 rounded-full px-7 py-3.5 text-sm font-bold transition ${
+          dark
+            ? "bg-gold text-pine-deep hover:bg-gold-light"
+            : "bg-pine text-white hover:bg-pine-mid"
+        }`}
       >
         {t("subscribe")}
       </button>
