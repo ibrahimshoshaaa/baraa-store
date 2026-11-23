@@ -71,21 +71,22 @@ export default function HomePage() {
           </div>
         </div>
         <div className="relative hero-img-mask">
-          {/* Art direction: the full tall portrait on phones, the 4:5 crop
-              (arch + hanger + kurta, like the design) on tablet/desktop. */}
+          {/* Art direction: the new green-kurta photo — 1:2 crop (hanger +
+              kurta, minaret at the left edge) on phones, the 4:5 crop
+              (minaret + arch + kurta + plant) on tablet/desktop. */}
           <Image
-            src="/images/hero-kurta.jpg"
+            src="/images/hero-kurta-mobile.jpg"
             alt={t("heroTitleA1") + " " + t("heroTitleA2")}
-            width={1120}
-            height={2240}
+            width={764}
+            height={1529}
             className="block h-auto w-full sm:hidden"
             priority
           />
           <Image
             src="/images/hero-kurta-hero.jpg"
             alt={t("heroTitleA1") + " " + t("heroTitleA2")}
-            width={1120}
-            height={1400}
+            width={1223}
+            height={1529}
             className="hidden h-auto w-full sm:block"
             priority
           />
