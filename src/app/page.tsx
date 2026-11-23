@@ -41,8 +41,8 @@ export default function HomePage() {
           image on the right. The image is uncropped (natural aspect, no
           card/border/shadow) and blends into the cream background; its
           bottom edge meets the trust bar below. */}
-      <section className="mx-auto grid max-w-6xl grid-cols-[1.05fr_0.95fr] items-end gap-2 px-4 pb-0 pt-5 sm:gap-8 sm:pt-10 lg:grid-cols-2 lg:pt-12">
-        <div className="flex flex-col justify-center pb-8 sm:pb-12">
+      <section className="mx-auto grid max-w-6xl grid-cols-[1.05fr_0.95fr] items-center gap-2 px-4 pb-0 pt-5 sm:gap-8 sm:pt-10 lg:grid-cols-2 lg:pt-12">
+        <div className="flex flex-col justify-center">
           <p className="text-[11px] font-semibold tracking-wide text-pine-mid sm:text-[13px]">{t("heroEyebrow")}</p>
           <h1 className="mt-2 font-display text-[1.55rem] font-bold leading-[1.1] text-pine sm:text-4xl lg:text-[3.5rem] lg:leading-[1.08]">
             {t("heroTitleA")}
