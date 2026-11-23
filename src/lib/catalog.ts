@@ -24,8 +24,8 @@ export type Product = {
   name: string;
   nameAr: string;
   categorySlug: string;
-  priceCents: number;
-  compareCents?: number;
+  price: number;  // whole EGP pounds
+  compare?: number;  // whole EGP pounds
   rating: number;
   reviews: number;
   colours: { name: string; nameAr: string; hex: string }[];
@@ -44,8 +44,8 @@ export const PRODUCTS: Product[] = [
     name: "Classic White Thobe",
     nameAr: "ثوب أبيض كلاسيكي",
     categorySlug: "mens-thobe",
-    priceCents: 3999,
-    compareCents: 4999,
+    price: 1900,
+    compare: 2400,
     rating: 4.9,
     reviews: 312,
     colours: [{ name: "White", nameAr: "أبيض", hex: "#f7f5ef" }],
@@ -61,8 +61,8 @@ export const PRODUCTS: Product[] = [
     name: "Premium Kurta",
     nameAr: "كردة فاخرة",
     categorySlug: "mens-kurta",
-    priceCents: 3499,
-    compareCents: 4999,
+    price: 1700,
+    compare: 2400,
     rating: 4.8,
     reviews: 268,
     colours: [{ name: "Emerald Green", nameAr: "أخضر زمردي", hex: "#0b3d2e" }],
@@ -78,8 +78,8 @@ export const PRODUCTS: Product[] = [
     name: "Elegant Panjabi",
     nameAr: "بنجابي أنيق",
     categorySlug: "mens-panjabi",
-    priceCents: 3699,
-    compareCents: 4899,
+    price: 1800,
+    compare: 2350,
     rating: 4.8,
     reviews: 187,
     colours: [{ name: "Beige", nameAr: "بيج", hex: "#e3d3b3" }],
@@ -95,8 +95,8 @@ export const PRODUCTS: Product[] = [
     name: "Black Kurta",
     nameAr: "كردة سوداء",
     categorySlug: "mens-kurta",
-    priceCents: 3299,
-    compareCents: 4499,
+    price: 1600,
+    compare: 2150,
     rating: 4.7,
     reviews: 154,
     colours: [{ name: "Black", nameAr: "أسود", hex: "#1a1a1a" }],
@@ -112,8 +112,8 @@ export const PRODUCTS: Product[] = [
     name: "Black Abaya",
     nameAr: "عباية سوداء",
     categorySlug: "womens-abaya",
-    priceCents: 4599,
-    compareCents: 5999,
+    price: 2200,
+    compare: 2900,
     rating: 4.9,
     reviews: 421,
     colours: [{ name: "Black", nameAr: "أسود", hex: "#1a1a1a" }],
@@ -129,8 +129,8 @@ export const PRODUCTS: Product[] = [
     name: "Maroon Hijab",
     nameAr: "حجاب عنابي",
     categorySlug: "womens-hijab",
-    priceCents: 1499,
-    compareCents: 1999,
+    price: 700,
+    compare: 950,
     rating: 4.8,
     reviews: 203,
     colours: [{ name: "Maroon", nameAr: "عنابي", hex: "#7a2e3a" }],
@@ -146,8 +146,8 @@ export const PRODUCTS: Product[] = [
     name: "White Panjabi",
     nameAr: "بنجابي أبيض",
     categorySlug: "mens-panjabi",
-    priceCents: 3399,
-    compareCents: 4599,
+    price: 1650,
+    compare: 2200,
     rating: 4.7,
     reviews: 129,
     colours: [{ name: "White", nameAr: "أبيض", hex: "#f7f5ef" }],
@@ -163,8 +163,8 @@ export const PRODUCTS: Product[] = [
     name: "Navy Thobe",
     nameAr: "ثوب كحلي",
     categorySlug: "mens-thobe",
-    priceCents: 4299,
-    compareCents: 5499,
+    price: 2050,
+    compare: 2650,
     rating: 4.8,
     reviews: 96,
     colours: [{ name: "Navy", nameAr: "كحلي", hex: "#1e2f4a" }],
@@ -180,8 +180,8 @@ export const PRODUCTS: Product[] = [
     name: "Embroidered Kurta",
     nameAr: "كردة مطرزة",
     categorySlug: "mens-kurta",
-    priceCents: 3899,
-    compareCents: 5299,
+    price: 1850,
+    compare: 2550,
     rating: 4.9,
     reviews: 88,
     colours: [{ name: "Cream", nameAr: "كريمي", hex: "#efe6d4" }],
@@ -318,7 +318,12 @@ export function blogDate(p: BlogPost, lang: Lang): string {
   return lang === "ar" ? p.dateAr : p.date;
 }
 
-// Currency is USD in both languages (the original design prices in dollars).
-export function formatPrice(cents: number): string {
-  return `$${(cents / 100).toFixed(2)}`;
+// Prices are in Egyptian pounds (EGP), whole pounds, no decimals.
+// English: "EGP 1,900" — Arabic: "1,900 ج.م" (Western digits in both).
+export const FREE_SHIPPING_THRESHOLD = 3500; // EGP — free shipping above this
+export const SHIPPING_FEE = 480; // EGP flat shipping fee
+
+export function formatPrice(amountEgp: number, lang: Lang = "en"): string {
+  const grouped = Math.round(amountEgp).toLocaleString("en-US");
+  return lang === "ar" ? `${grouped} ج.م` : `EGP ${grouped}`;
 }

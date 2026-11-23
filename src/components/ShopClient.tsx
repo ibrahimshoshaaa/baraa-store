@@ -29,8 +29,8 @@ export function ShopClient() {
           categoryName(p.categorySlug, "ar").includes(query.trim()),
       );
     }
-    if (sort === "price-low") list.sort((a, b) => a.priceCents - b.priceCents);
-    if (sort === "price-high") list.sort((a, b) => b.priceCents - a.priceCents);
+    if (sort === "price-low") list.sort((a, b) => a.price - b.price);
+    if (sort === "price-high") list.sort((a, b) => b.price - a.price);
     if (sort === "name")
       list.sort((a, b) => productName(a, lang).localeCompare(productName(b, lang), lang === "ar" ? "ar" : "en"));
     return list;
@@ -112,7 +112,7 @@ export function ShopClient() {
           </button>
         </div>
       ) : (
-        <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-4 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
           {filtered.map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}

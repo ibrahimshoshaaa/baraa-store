@@ -39,7 +39,7 @@ export function LanguageToggle() {
         type="button"
         onClick={() => setLang("en")}
         aria-pressed={lang === "en"}
-        className={`px-2.5 py-1.5 transition ${lang === "en" ? "bg-pine text-white" : "text-ink hover:bg-pine/10"}`}
+        className={`px-2 py-1.5 transition sm:px-2.5 ${lang === "en" ? "bg-pine text-white" : "text-ink hover:bg-pine/10"}`}
       >
         EN
       </button>
@@ -47,7 +47,7 @@ export function LanguageToggle() {
         type="button"
         onClick={() => setLang("ar")}
         aria-pressed={lang === "ar"}
-        className={`px-2.5 py-1.5 transition ${lang === "ar" ? "bg-pine text-white" : "text-ink hover:bg-pine/10"}`}
+        className={`px-2 py-1.5 transition sm:px-2.5 ${lang === "ar" ? "bg-pine text-white" : "text-ink hover:bg-pine/10"}`}
       >
         عربي
       </button>
@@ -116,13 +116,13 @@ export function Header() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-black/5 bg-cream/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-          <Link href="/" className="flex items-center gap-2" aria-label={t("storeName")}>
-            <MosqueMark />
-            <span className="leading-tight">
-              <span className="block font-display text-xl font-bold text-pine sm:text-2xl">{t("storeName")}</span>
-              <span className="block text-[10px] font-semibold tracking-wide text-ink-soft sm:text-[11px]">
+      <header className="sticky top-0 z-40 border-b border-black/10 bg-cream shadow-[0_2px_12px_rgba(11,61,46,0.08)]">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3">
+          <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2" aria-label={t("storeName")}>
+            <MosqueMark className="h-7 w-7 shrink-0 sm:h-9 sm:w-9" />
+            <span className="min-w-0 leading-tight">
+              <span className="block whitespace-nowrap font-display text-lg font-bold text-pine sm:text-2xl">{t("storeName")}</span>
+              <span className="hidden whitespace-nowrap text-[10px] font-semibold tracking-wide text-ink-soft min-[400px]:block sm:text-[11px]">
                 {lang === "ar" ? "ملابس إسلامية" : "Islamic Clothing Store"}
               </span>
             </span>
@@ -136,20 +136,20 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
             <LanguageToggle />
             <button
               type="button"
               aria-label={t("search")}
               onClick={() => setSearchOpen(true)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition hover:bg-pine/10"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition hover:bg-pine/10 sm:h-10 sm:w-10"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
             </button>
             <button
               type="button"
               onClick={openCart}
-              className="relative flex h-10 w-10 items-center justify-center rounded-full text-ink transition hover:bg-pine/10"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full text-ink transition hover:bg-pine/10 sm:h-10 sm:w-10"
               aria-label={`${t("openBag")}, ${count}`}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
@@ -164,7 +164,7 @@ export function Header() {
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((v) => !v)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition hover:bg-pine/10 lg:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition hover:bg-pine/10 sm:h-10 sm:w-10 lg:hidden"
             >
               {menuOpen ? (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
@@ -248,7 +248,7 @@ export function Header() {
                           <span className="block font-display font-bold">{productName(p, lang)}</span>
                           <span className="text-sm text-ink-soft">{categoryName(p.categorySlug, lang)}</span>
                         </span>
-                        <span className="font-display font-bold text-pine">{formatPrice(p.priceCents)}</span>
+                        <span className="font-display font-bold text-pine">{formatPrice(p.price, lang)}</span>
                       </Link>
                     </li>
                   ))}

@@ -30,7 +30,7 @@ export function ProductDetail({ product }: { product: Product }) {
       {
         slug: product.slug,
         name: productName(product, lang),
-        priceCents: product.priceCents,
+        price: product.price,
         colour,
         size,
         image: product.image,
@@ -53,7 +53,7 @@ export function ProductDetail({ product }: { product: Product }) {
             alt={productName(product, lang)}
             width={900}
             height={1100}
-            className="aspect-[4/5] w-full object-cover"
+            className="aspect-[4/3] w-full object-cover sm:aspect-[4/5]"
             priority
           />
         </div>
@@ -62,7 +62,7 @@ export function ProductDetail({ product }: { product: Product }) {
           <p className="text-xs font-semibold uppercase tracking-widest text-ink-soft">
             {categoryName(product.categorySlug, lang)}
           </p>
-          <h1 className="mt-2 font-display text-4xl font-bold text-pine">{productName(product, lang)}</h1>
+          <h1 className="mt-2 font-display text-3xl font-bold text-pine sm:text-4xl">{productName(product, lang)}</h1>
           <div className="mt-3 flex items-center gap-2">
             <Stars rating={product.rating} />
             <span className="text-sm text-ink-soft">
@@ -70,9 +70,9 @@ export function ProductDetail({ product }: { product: Product }) {
             </span>
           </div>
           <p className="mt-4 flex items-baseline gap-3">
-            <span className="font-display text-3xl font-bold text-pine">{formatPrice(product.priceCents)}</span>
-            {product.compareCents && (
-              <span className="text-lg text-ink-soft line-through">{formatPrice(product.compareCents)}</span>
+            <span className="font-display text-3xl font-bold text-pine">{formatPrice(product.price, lang)}</span>
+            {product.compare && (
+              <span className="text-lg text-ink-soft line-through">{formatPrice(product.compare, lang)}</span>
             )}
           </p>
           <p className="mt-4 leading-relaxed text-ink-soft">{productDescription(product, lang)}</p>
@@ -143,7 +143,7 @@ export function ProductDetail({ product }: { product: Product }) {
               onClick={handleAdd}
               className="flex-1 rounded-full bg-pine px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-pine-mid"
             >
-              {t("addToBag")} — {formatPrice(product.priceCents * qty)}
+              {t("addToBag")} — {formatPrice(product.price * qty, lang)}
             </button>
           </div>
 
@@ -157,7 +157,7 @@ export function ProductDetail({ product }: { product: Product }) {
 
       <section className="mt-16">
         <h2 className="text-center font-display text-3xl font-bold text-pine">{t("relatedProducts")}</h2>
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
           {related.map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}

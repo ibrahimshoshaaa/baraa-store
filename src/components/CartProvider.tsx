@@ -17,7 +17,7 @@ import {
 export type CartItem = {
   slug: string;
   name: string;
-  priceCents: number;
+  price: number;
   colour: string;
   size: string;
   quantity: number;
@@ -27,7 +27,7 @@ export type CartItem = {
 type CartContextValue = {
   items: CartItem[];
   count: number;
-  subtotalCents: number;
+  subtotal: number;
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
@@ -48,26 +48,39 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const loaded = useRef(false);
+  // Becomes true only after the saved cart has been read. The save effect
+  // waits for it, so the initial empty state can never overwrite localStorage
+  // (that race wiped the cart on every full reload).
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setItems(JSON.parse(raw) as CartItem[]);
+      if (raw) {
+        const stored = JSON.parse(raw) as (CartItem & { priceCents?: number })[];
+        // Migrate carts saved in the old USD-cents format to EGP pounds.
+        setItems(
+          stored.map((i) => {
+            if (typeof i.price === "number") return i as CartItem;
+            const { priceCents, ...rest } = i;
+            return { ...rest, price: typeof priceCents === "number" ? Math.round((priceCents / 100) * 48) : 0 } as CartItem;
+          }),
+        );
+      }
     } catch {
       // ignore corrupt storage
     }
-    loaded.current = true;
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
-    if (!loaded.current) return;
+    if (!hydrated) return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {
       // ignore
     }
-  }, [items]);
+  }, [items, hydrated]);
 
   const showToast = useCallback((message: string) => {
     setToast(message);
@@ -120,11 +133,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<CartContextValue>(() => {
     const count = items.reduce((s, i) => s + i.quantity, 0);
-    const subtotalCents = items.reduce((s, i) => s + i.priceCents * i.quantity, 0);
+    const subtotal = items.reduce((s, i) => s + i.price * i.quantity, 0);
     return {
       items,
       count,
-      subtotalCents,
+      subtotal,
       isOpen,
       openCart,
       closeCart,

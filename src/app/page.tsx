@@ -37,15 +37,15 @@ export default function HomePage() {
   return (
     <div className="fade-up">
       {/* Hero */}
-      <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-8 lg:grid-cols-2 lg:pt-14">
+      <section className="mx-auto grid max-w-6xl items-center gap-6 px-4 pb-8 pt-6 sm:gap-8 sm:pb-10 sm:pt-8 lg:grid-cols-2 lg:pt-14">
         <div>
           <p className="text-sm font-semibold tracking-wide text-pine-mid">{t("heroEyebrow")}</p>
-          <h1 className="mt-3 font-display text-5xl font-bold leading-[1.05] text-pine sm:text-6xl lg:text-7xl">
+          <h1 className="mt-3 font-display text-[2.6rem] font-bold leading-[1.08] text-pine sm:text-6xl lg:text-7xl">
             {t("heroTitleA")}
             <span className="block italic text-gold">{t("heroTitleB")}</span>
           </h1>
-          <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">{t("heroSub")}</p>
-          <div className="mt-7">
+          <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">{t("heroSub")}</p>
+          <div className="mt-6 sm:mt-7">
             <Link
               href="/shop"
               className="rounded-full bg-pine px-8 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-pine-mid"
@@ -60,7 +60,7 @@ export default function HomePage() {
             alt={t("heroTitleA")}
             width={900}
             height={1100}
-            className="aspect-[4/5] w-full object-cover"
+            className="aspect-[4/3] w-full object-cover sm:aspect-[4/5]"
             priority
           />
         </div>
@@ -122,7 +122,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 pb-16 text-center">
         <p className="eyebrow justify-center">{t("featuredEyebrow")}</p>
         <h2 className="mt-3 font-display text-3xl font-bold text-pine sm:text-4xl">{t("featuredTitle")}</h2>
-        <div className="mt-10 grid grid-cols-1 gap-5 text-start sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-2 gap-4 text-start sm:gap-5 lg:grid-cols-3">
           {featured.map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}
@@ -212,16 +212,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Special offer banner — arch photo left, lanterns right */}
+      {/* Special offer banner — arch photo left, lanterns right (desktop);
+          on mobile the photos become full-width bands above and below the text */}
       <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="relative overflow-hidden rounded-[32px] bg-pine px-6 py-12 text-center text-white sm:px-12">
+        <div className="relative overflow-hidden rounded-[32px] bg-pine text-center text-white">
+          <div className="relative h-40 sm:hidden">
+            <Image src="/images/mosque.jpg" alt="" fill className="object-cover" sizes="100vw" />
+          </div>
           <div className="absolute inset-y-0 start-0 hidden w-1/4 sm:block">
             <Image src="/images/mosque.jpg" alt="" fill className="object-cover" sizes="25vw" />
           </div>
           <div className="absolute inset-y-0 end-0 hidden w-1/4 sm:block">
             <Image src="/images/lantern.jpg" alt="" fill className="object-cover" sizes="25vw" />
           </div>
-          <div className="relative z-10">
+          <div className="relative z-10 px-6 py-12 sm:px-12">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-light">{t("offerEyebrow")}</p>
             <h2 className="mt-2 font-display text-4xl font-bold sm:text-5xl">{t("offerTitle")}</h2>
             <p className="mt-2 text-lg text-white/85">{t("offerSub")}</p>
@@ -231,6 +235,9 @@ export default function HomePage() {
             >
               {t("shopNow")} →
             </Link>
+          </div>
+          <div className="relative h-40 sm:hidden">
+            <Image src="/images/lantern.jpg" alt="" fill className="object-cover" sizes="100vw" />
           </div>
         </div>
       </section>
@@ -268,22 +275,6 @@ export default function HomePage() {
         <p className="eyebrow justify-center">{t("reviewsEyebrow")}</p>
         <h2 className="mt-3 font-display text-3xl font-bold text-pine sm:text-4xl">{t("reviewsTitle")}</h2>
         <div className="relative mx-auto mt-10 max-w-2xl rounded-[24px] bg-surface p-8 shadow-[0_6px_24px_rgba(11,61,46,0.07)] sm:p-10">
-          <button
-            type="button"
-            onClick={() => setTestimonial((v) => (v + 2) % 3)}
-            aria-label="Previous testimonial"
-            className="absolute start-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white sm:-start-5"
-          >
-            ‹
-          </button>
-          <button
-            type="button"
-            onClick={() => setTestimonial((v) => (v + 1) % 3)}
-            aria-label="Next testimonial"
-            className="absolute end-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white sm:-end-5"
-          >
-            ›
-          </button>
           <span className="font-display text-6xl leading-none text-gold" aria-hidden="true">“</span>
           <p className="-mt-4 font-display text-xl font-semibold leading-relaxed text-pine sm:text-2xl">
             {t(current.quoteKey)}
@@ -310,6 +301,25 @@ export default function HomePage() {
                 className={`h-2.5 rounded-full transition ${testimonial % 3 === i ? "w-7 bg-gold" : "w-2.5 bg-black/15"}`}
               />
             ))}
+          </div>
+          {/* Arrows: side buttons on desktop, a row below the dots on mobile */}
+          <div className="mt-6 flex items-center justify-center gap-3 sm:contents">
+            <button
+              type="button"
+              onClick={() => setTestimonial((v) => (v + 2) % 3)}
+              aria-label="Previous testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-start-5 sm:top-1/2 sm:-translate-y-1/2"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={() => setTestimonial((v) => (v + 1) % 3)}
+              aria-label="Next testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-end-5 sm:top-1/2 sm:-translate-y-1/2"
+            >
+              ›
+            </button>
           </div>
         </div>
       </section>

@@ -6,11 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { formatPrice, getProduct, productName } from "@/lib/catalog";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE, formatPrice, getProduct, productName } from "@/lib/catalog";
 import { useLanguage } from "@/lib/i18n";
 import { useCart } from "@/components/CartProvider";
-
-const FREE_SHIPPING_CENTS = 7500;
 
 function orderCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -20,7 +18,7 @@ function orderCode(): string {
 }
 
 export default function CheckoutPage() {
-  const { items, subtotalCents, clear } = useCart();
+  const { items, subtotal, clear } = useCart();
   const { lang, t } = useLanguage();
   const router = useRouter();
   const [name, setName] = useState("");
@@ -30,8 +28,8 @@ export default function CheckoutPage() {
   const [notes, setNotes] = useState("");
   const [error, setError] = useState("");
 
-  const shippingCents = items.length === 0 || subtotalCents >= FREE_SHIPPING_CENTS ? 0 : 999;
-  const totalCents = subtotalCents + shippingCents;
+  const shipping = items.length === 0 || subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const total = subtotal + shipping;
 
   function placeOrder(e: React.FormEvent) {
     e.preventDefault();
@@ -43,7 +41,7 @@ export default function CheckoutPage() {
     try {
       sessionStorage.setItem(
         "baraa-order",
-        JSON.stringify({ code, name: name.trim(), totalCents, count: items.reduce((s, i) => s + i.quantity, 0) }),
+        JSON.stringify({ code, name: name.trim(), total, count: items.reduce((s, i) => s + i.quantity, 0) }),
       );
     } catch {
       // ignore
@@ -136,7 +134,7 @@ export default function CheckoutPage() {
             type="submit"
             className="mt-6 w-full rounded-full bg-gold py-4 text-base font-bold text-pine-deep transition hover:bg-gold-light"
           >
-            {t("placeOrder")} — {formatPrice(totalCents)}
+            {t("placeOrder")} — {formatPrice(total, lang)}
           </button>
         </form>
 
@@ -158,7 +156,7 @@ export default function CheckoutPage() {
                         {item.colour} · {t("size")} {item.size} × {item.quantity}
                       </p>
                     </div>
-                    <p className="text-sm font-bold text-pine">{formatPrice(item.priceCents * item.quantity)}</p>
+                    <p className="text-sm font-bold text-pine">{formatPrice(item.price * item.quantity, lang)}</p>
                   </li>
                 );
               })}
@@ -166,15 +164,15 @@ export default function CheckoutPage() {
             <dl className="mt-4 space-y-2 border-t border-black/5 pt-4 text-sm">
               <div className="flex justify-between">
                 <dt className="text-ink-soft">{t("subtotal")}</dt>
-                <dd className="font-semibold">{formatPrice(subtotalCents)}</dd>
+                <dd className="font-semibold">{formatPrice(subtotal, lang)}</dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-ink-soft">{t("shipping")}</dt>
-                <dd className="font-semibold">{shippingCents === 0 ? t("free") : formatPrice(shippingCents)}</dd>
+                <dd className="font-semibold">{shipping === 0 ? t("free") : formatPrice(shipping, lang)}</dd>
               </div>
               <div className="flex justify-between border-t border-black/5 pt-3 text-base">
                 <dt className="font-bold">{t("total")}</dt>
-                <dd className="font-display text-xl font-bold text-pine">{formatPrice(totalCents)}</dd>
+                <dd className="font-display text-xl font-bold text-pine">{formatPrice(total, lang)}</dd>
               </div>
             </dl>
           </div>

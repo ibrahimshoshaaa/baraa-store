@@ -9,14 +9,15 @@ import { useLanguage } from "@/lib/i18n";
 
 function ThankYouInner() {
   const params = useSearchParams();
-  const { t } = useLanguage();
-  const [order, setOrder] = useState<{ code: string; name: string; totalCents: number } | null>(null);
+  const { lang, t } = useLanguage();
+  const [order, setOrder] = useState<{ code: string; name: string; total: number } | null>(null);
 
   useEffect(() => {
     try {
       const raw = sessionStorage.getItem("baraa-order");
       if (raw) {
-        const parsed = JSON.parse(raw) as { code: string; name: string; totalCents: number };
+        const rawParsed = JSON.parse(raw) as { code: string; name: string; total?: number; totalCents?: number };
+        const parsed = { code: rawParsed.code, name: rawParsed.name, total: rawParsed.total ?? (rawParsed.totalCents != null ? Math.round((rawParsed.totalCents / 100) * 48) : 0) };
         if (parsed.code === params.get("code")) setOrder(parsed);
       }
     } catch {
@@ -48,7 +49,7 @@ function ThankYouInner() {
             {order && (
               <div className="flex justify-between">
                 <dt className="text-ink-soft">{t("thankYouTotal")}</dt>
-                <dd className="font-display font-bold text-pine">{formatPrice(order.totalCents)}</dd>
+                <dd className="font-display font-bold text-pine">{formatPrice(order.total, lang)}</dd>
               </div>
             )}
           </dl>

@@ -32,7 +32,7 @@ export function Footer() {
               { label: t("navBlog"), href: "/blog" },
               { label: t("navContact"), href: "/contact" },
             ].map((l) => (
-              <li key={l.href}>
+              <li key={l.label}>
                 <Link href={l.href} className="transition hover:text-gold-light">
                   {l.label}
                 </Link>
@@ -51,7 +51,7 @@ export function Footer() {
               { label: t("footerTrackOrder"), href: "/checkout" },
               { label: t("footerSupport"), href: "/contact" },
             ].map((l) => (
-              <li key={l.href}>
+              <li key={l.label}>
                 <Link href={l.href} className="transition hover:text-gold-light">
                   {l.label}
                 </Link>

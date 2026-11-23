@@ -30,6 +30,10 @@ body {
   color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  /* Safety net against horizontal scrolling on small screens.
+     `clip` (unlike `hidden`) does not create a scroll container,
+     so the sticky header keeps working. */
+  overflow-x: clip;
 }
 
 h1,

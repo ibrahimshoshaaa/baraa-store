@@ -4,14 +4,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { formatPrice, getProduct, productName } from "@/lib/catalog";
+import { FREE_SHIPPING_THRESHOLD, formatPrice, getProduct, productName } from "@/lib/catalog";
 import { useLanguage } from "@/lib/i18n";
 import { useCart } from "./CartProvider";
 
-const FREE_SHIPPING_CENTS = 7500;
-
 export function BagDrawer() {
-  const { items, isOpen, closeCart, setQuantity, removeItem, subtotalCents } = useCart();
+  const { items, isOpen, closeCart, setQuantity, removeItem, subtotal } = useCart();
   const { lang, t } = useLanguage();
   const count = items.reduce((s, i) => s + i.quantity, 0);
   const isRtl = lang === "ar";
@@ -106,7 +104,7 @@ export function BagDrawer() {
                           </button>
                         </div>
                         <p className="font-display font-bold text-pine">
-                          {formatPrice(item.priceCents * item.quantity)}
+                          {formatPrice(item.price * item.quantity, lang)}
                         </p>
                       </div>
                     </div>
@@ -116,7 +114,7 @@ export function BagDrawer() {
             </ul>
 
             <div className="border-t border-black/5 px-5 py-4">
-              {subtotalCents >= FREE_SHIPPING_CENTS ? (
+              {subtotal >= FREE_SHIPPING_THRESHOLD ? (
                 <p className="rounded-2xl bg-pine/10 px-4 py-2.5 text-center text-sm font-semibold text-pine">
                   {t("freeShippingUnlocked")}
                 </p>
@@ -129,7 +127,7 @@ export function BagDrawer() {
                       if (i < arr.length - 1) {
                         acc.push(
                           <strong key={i} className="text-pine">
-                            {formatPrice(FREE_SHIPPING_CENTS - subtotalCents)}
+                            {formatPrice(FREE_SHIPPING_THRESHOLD - subtotal, lang)}
                           </strong>,
                         );
                       }
@@ -139,7 +137,7 @@ export function BagDrawer() {
               )}
               <div className="mt-3 flex items-center justify-between">
                 <span className="font-semibold">{t("subtotal")}</span>
-                <span className="font-display text-xl font-bold text-pine">{formatPrice(subtotalCents)}</span>
+                <span className="font-display text-xl font-bold text-pine">{formatPrice(subtotal, lang)}</span>
               </div>
               <p className="mt-1 text-xs text-ink-soft">{t("shippingNote")}</p>
               <Link
