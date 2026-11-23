@@ -48,15 +48,16 @@ export default function HomePage() {
   return (
     <div className="fade-up">
       {/* Hero — split 2-column layout like the reference design, on every
-          screen. The image bleeds to the right edge of the container and
+          screen. The image bleeds to the outer edge of the container and
           spans the full hero height (navbar → trust bar); a gradient mask
-          dissolves its left/top edges into the cream background. The text
-          column overlaps slightly into the faded edge. Headline is an
-          oversized 3-line stack: Islamic / Clothing / for Every You. */}
-      <section className="mx-auto grid max-w-6xl grid-cols-[1.05fr_0.95fr] items-center gap-2 pb-0 pl-4 pr-0 sm:gap-4 lg:grid-cols-2">
-        <div className="relative z-10 flex flex-col justify-center lg:-mr-6">
+          dissolves the edge facing the text into the cream background
+          (mirrored in RTL). The text column overlaps slightly into the
+          faded edge. Headline is an oversized 3-line stack:
+          Islamic / Clothing / for Every You. */}
+      <section className="mx-auto grid max-w-6xl grid-cols-[1.12fr_0.88fr] items-center gap-2 pb-0 ps-4 pe-0 sm:gap-4 lg:grid-cols-2">
+        <div className="relative z-10 flex flex-col justify-center lg:-me-6">
           <p className="text-[11px] font-semibold tracking-wide text-pine-mid sm:text-[13px]">{t("heroEyebrow")}</p>
-          <h1 className="mt-2 font-display text-[1.9rem] font-bold leading-[1.05] tracking-tight text-pine sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="mt-2 font-display text-[1.9rem] font-bold leading-[1.05] tracking-tight text-pine max-sm:rtl:text-[1.75rem] sm:text-5xl md:text-6xl lg:text-7xl">
             <span className="block">{t("heroTitleA1")}</span>
             <span className="block">{t("heroTitleA2")}</span>
             <span className="block italic text-gold">{t("heroTitleB")}</span>
@@ -73,9 +74,11 @@ export default function HomePage() {
         <div className="relative hero-img-mask">
           {/* Art direction: the new green-kurta photo — 1:2 crop (hanger +
               kurta, minaret at the left edge) on phones, the 4:5 crop
-              (minaret + arch + kurta + plant) on tablet/desktop. */}
+              (minaret + arch + kurta + plant) on tablet/desktop.
+              Arabic uses the mirrored photo (kurta on the left), so the
+              composition matches the mirrored RTL layout. */}
           <Image
-            src="/images/hero-kurta-mobile.jpg"
+            src={lang === "ar" ? "/images/hero-kurta-mobile-ar.jpg" : "/images/hero-kurta-mobile.jpg"}
             alt={t("heroTitleA1") + " " + t("heroTitleA2")}
             width={764}
             height={1529}
@@ -83,7 +86,7 @@ export default function HomePage() {
             priority
           />
           <Image
-            src="/images/hero-kurta-hero.jpg"
+            src={lang === "ar" ? "/images/hero-kurta-hero-ar.jpg" : "/images/hero-kurta-hero.jpg"}
             alt={t("heroTitleA1") + " " + t("heroTitleA2")}
             width={1223}
             height={1529}

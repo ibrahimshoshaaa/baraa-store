@@ -56,8 +56,24 @@
   mask-composite: intersect;
 }
 
+/* RTL: the hero image sits on the left, so the fade must face the text
+   (right edge) instead of the outer edge — mirror of the LTR mask. */
+[dir="rtl"] .hero-img-mask {
+  -webkit-mask-image: linear-gradient(to left, transparent 0%, black 22%),
+    linear-gradient(to bottom, transparent 0%, black 12%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to left, transparent 0%, black 22%),
+    linear-gradient(to bottom, transparent 0%, black 12%);
+  mask-composite: intersect;
+}
+
 html {
   scroll-behavior: smooth;
+  /* Stop Android Chrome from inflating fonts in narrow columns
+     (font boosting) — it made Arabic headings render giant and clip.
+     This does not block pinch zoom. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
