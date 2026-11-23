@@ -36,41 +36,54 @@ export default function HomePage() {
 
   return (
     <div className="fade-up">
-      {/* Hero */}
-      <section className="mx-auto grid max-w-6xl items-center gap-6 px-4 pb-8 pt-6 sm:gap-8 sm:pb-10 sm:pt-8 lg:grid-cols-2 lg:pt-14">
+      {/* Hero — compact on mobile: eyebrow, tight title, sub, CTA row, then a
+          compact image card. Headline + CTA + image fit ~one viewport. */}
+      <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-6 sm:gap-10 sm:pt-10 lg:grid-cols-2 lg:pb-14 lg:pt-16">
         <div>
-          <p className="text-sm font-semibold tracking-wide text-pine-mid">{t("heroEyebrow")}</p>
-          <h1 className="mt-3 font-display text-[2.6rem] font-bold leading-[1.08] text-pine sm:text-6xl lg:text-7xl">
+          <p className="text-[13px] font-semibold tracking-wide text-pine-mid">{t("heroEyebrow")}</p>
+          <h1 className="mt-2.5 font-display text-[2.15rem] font-bold leading-[1.08] text-pine sm:text-5xl lg:text-[3.5rem]">
             {t("heroTitleA")}
             <span className="block italic text-gold">{t("heroTitleB")}</span>
           </h1>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">{t("heroSub")}</p>
-          <div className="mt-6 sm:mt-7">
+          <p className="mt-3.5 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-4 sm:text-lg">
+            {t("heroSub")}
+          </p>
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 sm:mt-6">
+            <Link href="/shop" className="btn btn-primary">
+              {t("shopNow")} →
+            </Link>
             <Link
               href="/shop"
-              className="rounded-full bg-pine px-8 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-pine-mid"
+              className="text-sm font-bold text-pine underline decoration-gold decoration-2 underline-offset-4 transition hover:text-pine-mid"
             >
-              {t("shopNow")} →
+              {t("browseAllCategories")} →
             </Link>
           </div>
         </div>
-        <div className="relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(11,61,46,0.18)]">
-          <Image
-            src="/images/hero-kurta.jpg"
-            alt={t("heroTitleA")}
-            width={900}
-            height={1100}
-            className="aspect-[4/3] w-full object-cover sm:aspect-[4/5]"
-            priority
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="absolute -inset-2.5 hidden rounded-[36px] border border-gold/40 lg:block lg:rounded-b-[36px] lg:rounded-t-[240px]"
           />
+          <div className="relative overflow-hidden rounded-[24px] shadow-[var(--shadow-hero)] lg:rounded-b-[28px] lg:rounded-t-[220px]">
+            <Image
+              src="/images/hero-kurta.jpg"
+              alt={t("heroTitleA")}
+              width={900}
+              height={1100}
+              className="aspect-[4/3] w-full object-cover sm:aspect-[16/10] lg:aspect-[4/5]"
+              priority
+            />
+          </div>
         </div>
       </section>
 
-      {/* Trust strip — floating card overlapping the hero bottom edge */}
-      <section className="relative z-10 mx-auto -mt-16 max-w-6xl px-4">
-        <div className="grid grid-cols-2 gap-3 rounded-[24px] bg-surface p-4 shadow-[0_6px_24px_rgba(11,61,46,0.07)] sm:grid-cols-4">
+      {/* Trust strip — a clean card below the hero (no overlap), hairline
+          dividers between items, 2x2 on mobile, one row of 4 on desktop. */}
+      <section className="mx-auto max-w-6xl px-4 pb-2">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[20px] border border-black/5 bg-black/5 shadow-[var(--shadow-card)] sm:grid-cols-4">
           {TRUST.map((item) => (
-            <div key={item.key} className="flex items-center gap-3 px-2 py-2">
+            <div key={item.key} className="flex items-center gap-3 bg-surface px-4 py-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pine/10 text-pine">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d={item.icon} />
@@ -83,15 +96,15 @@ export default function HomePage() {
       </section>
 
       {/* Categories */}
-      <section className="mx-auto max-w-6xl px-4 py-16 text-center">
+      <section className="section pb-0 text-center">
         <p className="eyebrow justify-center">{t("categoriesEyebrow")}</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-pine sm:text-4xl">{t("categoriesTitle")}</h2>
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <h2 className="section-title mt-3">{t("categoriesTitle")}</h2>
+        <div className="mt-8 grid grid-cols-2 gap-4 sm:mt-10 sm:grid-cols-3 lg:grid-cols-5">
           {CATEGORIES.map((c) => (
             <Link
               key={c.slug}
               href={`/shop?category=${c.slug}`}
-              className="group overflow-hidden rounded-[24px] bg-surface text-start shadow-[0_6px_24px_rgba(11,61,46,0.07)] transition hover:shadow-[0_14px_36px_rgba(11,61,46,0.14)]"
+              className="card card-hover group overflow-hidden text-start"
             >
               <span className="relative block aspect-square overflow-hidden bg-cream-deep">
                 <Image
@@ -110,34 +123,28 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
-        <Link
-          href="/shop"
-          className="mt-8 inline-block rounded-full bg-pine px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-pine-mid"
-        >
+        <Link href="/shop" className="btn btn-primary mt-8">
           {t("browseAllCategories")} →
         </Link>
       </section>
 
       {/* Featured products */}
-      <section className="mx-auto max-w-6xl px-4 pb-16 text-center">
+      <section className="section pb-0 text-center">
         <p className="eyebrow justify-center">{t("featuredEyebrow")}</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-pine sm:text-4xl">{t("featuredTitle")}</h2>
-        <div className="mt-10 grid grid-cols-2 gap-4 text-start sm:gap-5 lg:grid-cols-3">
+        <h2 className="section-title mt-3">{t("featuredTitle")}</h2>
+        <div className="mt-8 grid grid-cols-2 gap-4 text-start sm:mt-10 sm:gap-5 lg:grid-cols-3">
           {featured.map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}
         </div>
-        <Link
-          href="/shop"
-          className="mt-8 inline-block rounded-full bg-pine px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-pine-mid"
-        >
+        <Link href="/shop" className="btn btn-primary mt-8">
           {t("viewMoreProducts")} →
         </Link>
       </section>
 
       {/* Dark green banner — mosque photo on the left, text on the right */}
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="flex flex-col overflow-hidden rounded-[32px] bg-pine shadow-[0_20px_50px_rgba(11,61,46,0.25)] sm:flex-row">
+      <section className="section pb-0">
+        <div className="flex flex-col overflow-hidden rounded-[28px] bg-pine shadow-[var(--shadow-hero)] sm:flex-row">
           <div className="relative min-h-[220px] sm:w-2/5">
             <Image
               src="/images/mosque.jpg"
@@ -147,15 +154,10 @@ export default function HomePage() {
               sizes="(max-width: 640px) 100vw, 40vw"
             />
           </div>
-          <div className="flex flex-1 flex-col items-center justify-center px-6 py-14 text-center text-white sm:px-12">
-            <h2 className="font-display text-3xl font-bold leading-snug sm:text-4xl">
-              {t("bannerTitle")}
-            </h2>
-            <p className="mt-3 text-white/80">{t("bannerSub")}</p>
-            <Link
-              href="/shop"
-              className="mt-7 inline-block rounded-full bg-gold px-8 py-3.5 text-sm font-bold text-pine-deep transition hover:bg-gold-light"
-            >
+          <div className="flex flex-1 flex-col items-center justify-center px-6 py-12 text-center text-white sm:px-12 sm:py-16">
+            <h2 className="font-display text-3xl font-bold leading-snug sm:text-4xl">{t("bannerTitle")}</h2>
+            <p className="mt-3 max-w-md leading-relaxed text-white/80">{t("bannerSub")}</p>
+            <Link href="/shop" className="btn btn-gold mt-7">
               {t("exploreCollection")} →
             </Link>
           </div>
@@ -163,13 +165,15 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter strip */}
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="flex flex-col items-center gap-5 rounded-[24px] bg-surface p-6 shadow-[0_6px_24px_rgba(11,61,46,0.07)] sm:flex-row sm:justify-between sm:p-8">
+      <section className="section pb-0">
+        <div className="card flex flex-col items-center gap-5 p-6 sm:flex-row sm:justify-between sm:gap-8 sm:p-8">
           <div className="flex items-center gap-4 text-center sm:text-start">
-            <MosqueMark className="h-12 w-12 shrink-0" />
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/15">
+              <MosqueMark className="h-9 w-9" />
+            </span>
             <div>
               <h3 className="font-display text-2xl font-bold text-pine">{t("newsletterTitle")}</h3>
-              <p className="mt-1 text-sm text-ink-soft">{t("newsletterSub")}</p>
+              <p className="mt-1 text-sm leading-relaxed text-ink-soft">{t("newsletterSub")}</p>
             </div>
           </div>
           <div className="w-full max-w-md">
@@ -179,43 +183,41 @@ export default function HomePage() {
       </section>
 
       {/* Why choose us */}
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 lg:grid-cols-2">
+      <section className="section grid items-center gap-10 pb-0 lg:grid-cols-2">
         <div>
-          <p className="eyebrow">{t("whyEyebrow")}</p>
-          <h2 className="mt-3 font-display text-3xl font-bold leading-snug text-pine sm:text-4xl">
-            {t("whyTitle")}
-          </h2>
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <p className="eyebrow eyebrow-start">{t("whyEyebrow")}</p>
+          <h2 className="section-title mt-3">{t("whyTitle")}</h2>
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {WHY.map((item) => (
               <div
                 key={item.key}
-                className="flex flex-col items-center rounded-[20px] bg-surface p-5 text-center shadow-[0_6px_24px_rgba(11,61,46,0.06)]"
+                className="card flex flex-col items-center p-4 text-center sm:p-5"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pine/10 text-pine">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d={item.icon} />
                   </svg>
                 </span>
-                <p className="mt-3 text-sm font-bold leading-snug">{t(item.key)}</p>
+                <p className="mt-3 text-[13px] font-bold leading-snug">{t(item.key)}</p>
               </div>
             ))}
           </div>
         </div>
-        <div className="relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(11,61,46,0.18)]">
+        <div className="relative overflow-hidden rounded-[28px] shadow-[var(--shadow-hero)]">
           <Image
             src="/images/man-thobe.jpg"
             alt={t("whyTitle")}
             width={900}
             height={1000}
-            className="aspect-[4/5] w-full object-cover"
+            className="aspect-[4/3] w-full object-cover lg:aspect-[4/5]"
           />
         </div>
       </section>
 
       {/* Special offer banner — arch photo left, lanterns right (desktop);
           on mobile the photos become full-width bands above and below the text */}
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="relative overflow-hidden rounded-[32px] bg-pine text-center text-white">
+      <section className="section pb-0">
+        <div className="relative overflow-hidden rounded-[28px] bg-pine text-center text-white ring-1 ring-inset ring-gold/25">
           <div className="relative h-40 sm:hidden">
             <Image src="/images/mosque.jpg" alt="" fill className="object-cover" sizes="100vw" />
           </div>
@@ -225,14 +227,15 @@ export default function HomePage() {
           <div className="absolute inset-y-0 end-0 hidden w-1/4 sm:block">
             <Image src="/images/lantern.jpg" alt="" fill className="object-cover" sizes="25vw" />
           </div>
-          <div className="relative z-10 px-6 py-12 sm:px-12">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-light">{t("offerEyebrow")}</p>
-            <h2 className="mt-2 font-display text-4xl font-bold sm:text-5xl">{t("offerTitle")}</h2>
-            <p className="mt-2 text-lg text-white/85">{t("offerSub")}</p>
-            <Link
-              href="/shop"
-              className="mt-6 inline-block rounded-full bg-gold px-8 py-3.5 text-sm font-bold text-pine-deep transition hover:bg-gold-light"
-            >
+          <div className="relative z-10 px-6 py-12 sm:px-12 sm:py-14">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.2em] text-gold-light">
+              {t("offerEyebrow")}
+            </p>
+            <h2 className="mt-2 font-display text-[2.5rem] font-bold leading-none sm:text-5xl">
+              {t("offerTitle")}
+            </h2>
+            <p className="mt-3 text-lg text-white/85">{t("offerSub")}</p>
+            <Link href="/shop" className="btn btn-gold mt-7">
               {t("shopNow")} →
             </Link>
           </div>
@@ -243,26 +246,35 @@ export default function HomePage() {
       </section>
 
       {/* Blog */}
-      <section className="mx-auto max-w-6xl px-4 pb-16 text-center">
+      <section className="section pb-0 text-center">
         <p className="eyebrow justify-center">{t("blogEyebrow")}</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-pine sm:text-4xl">{t("blogTitle")}</h2>
-        <div className="mt-10 grid grid-cols-1 gap-5 text-start sm:grid-cols-3">
+        <h2 className="section-title mt-3">{t("blogTitle")}</h2>
+        <div className="mt-8 grid grid-cols-1 gap-5 text-start sm:mt-10 sm:grid-cols-3">
           {BLOG_POSTS.map((post) => (
-            <article
-              key={post.slug}
-              className="overflow-hidden rounded-[24px] bg-surface shadow-[0_6px_24px_rgba(11,61,46,0.07)] transition hover:shadow-[0_14px_36px_rgba(11,61,46,0.14)]"
-            >
-              <Link href={`/blog/${post.slug}`} className="relative block aspect-[16/10] overflow-hidden bg-cream-deep">
-                <Image src={post.image} alt={blogTitle(post, lang)} fill className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
+            <article key={post.slug} className="card card-hover group overflow-hidden">
+              <Link
+                href={`/blog/${post.slug}`}
+                className="relative block aspect-[16/10] overflow-hidden bg-cream-deep"
+              >
+                <Image
+                  src={post.image}
+                  alt={blogTitle(post, lang)}
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
               </Link>
               <div className="p-5">
                 <h3 className="font-display text-lg font-bold leading-snug text-pine">
-                  <Link href={`/blog/${post.slug}`} className="hover:text-pine-mid">
+                  <Link href={`/blog/${post.slug}`} className="transition hover:text-pine-mid">
                     {blogTitle(post, lang)}
                   </Link>
                 </h3>
-                <Link href={`/blog/${post.slug}`} className="mt-3 inline-block text-sm font-bold text-pine hover:text-gold">
-                  {t("readMore")} →
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-pine transition hover:text-gold"
+                >
+                  {t("readMore")} <span aria-hidden="true">→</span>
                 </Link>
               </div>
             </article>
@@ -271,18 +283,26 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="mx-auto max-w-6xl px-4 pb-16 text-center">
+      <section className="section pb-0 text-center">
         <p className="eyebrow justify-center">{t("reviewsEyebrow")}</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-pine sm:text-4xl">{t("reviewsTitle")}</h2>
-        <div className="relative mx-auto mt-10 max-w-2xl rounded-[24px] bg-surface p-8 shadow-[0_6px_24px_rgba(11,61,46,0.07)] sm:p-10">
-          <span className="font-display text-6xl leading-none text-gold" aria-hidden="true">“</span>
-          <p className="-mt-4 font-display text-xl font-semibold leading-relaxed text-pine sm:text-2xl">
+        <h2 className="section-title mt-3">{t("reviewsTitle")}</h2>
+        <div className="card relative mx-auto mt-8 max-w-2xl p-7 text-center sm:mt-10 sm:p-10">
+          <span className="font-display text-5xl leading-none text-gold" aria-hidden="true">
+            “
+          </span>
+          <p className="-mt-3 font-display text-xl font-semibold leading-relaxed text-pine sm:text-2xl">
             {t(current.quoteKey)}
           </p>
           <div className="mt-6 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
-                <Image src="/images/avatar-ahmed.jpg" alt={t(current.authorKey)} fill className="object-cover" sizes="48px" />
+              <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-gold/40">
+                <Image
+                  src="/images/avatar-ahmed.jpg"
+                  alt={t(current.authorKey)}
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                />
               </span>
               <span className="text-start">
                 <span className="block font-bold">{t(current.authorKey)}</span>
@@ -298,7 +318,9 @@ export default function HomePage() {
                 type="button"
                 onClick={() => setTestimonial(i)}
                 aria-label={`Testimonial ${i + 1}`}
-                className={`h-2.5 rounded-full transition ${testimonial % 3 === i ? "w-7 bg-gold" : "w-2.5 bg-black/15"}`}
+                className={`h-2.5 rounded-full transition ${
+                  testimonial % 3 === i ? "w-7 bg-gold" : "w-2.5 bg-black/15"
+                }`}
               />
             ))}
           </div>
@@ -308,7 +330,7 @@ export default function HomePage() {
               type="button"
               onClick={() => setTestimonial((v) => (v + 2) % 3)}
               aria-label="Previous testimonial"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-start-5 sm:top-1/2 sm:-translate-y-1/2"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-start-5 sm:top-1/2 sm:-translate-y-1/2"
             >
               ‹
             </button>
@@ -316,7 +338,7 @@ export default function HomePage() {
               type="button"
               onClick={() => setTestimonial((v) => (v + 1) % 3)}
               aria-label="Next testimonial"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-end-5 sm:top-1/2 sm:-translate-y-1/2"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-lg font-bold text-pine shadow-md transition hover:bg-pine hover:text-white max-sm:static sm:absolute sm:-end-5 sm:top-1/2 sm:-translate-y-1/2"
             >
               ›
             </button>
@@ -325,14 +347,17 @@ export default function HomePage() {
       </section>
 
       {/* Join our community */}
-      <section className="mx-auto max-w-6xl px-4 pb-20">
-        <div className="relative overflow-hidden rounded-[32px] px-6 py-14 text-center text-white sm:px-12">
+      <section className="section">
+        <div className="relative overflow-hidden rounded-[28px] px-6 py-14 text-center text-white sm:px-12 sm:py-20">
           <Image src="/images/mosque-dusk.jpg" alt="" fill className="object-cover" sizes="100vw" />
-          <div className="absolute inset-0 bg-pine/75" aria-hidden="true" />
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-pine/70 via-pine/80 to-pine-deep/90"
+            aria-hidden="true"
+          />
           <div className="relative z-10 mx-auto max-w-xl">
             <h2 className="font-display text-3xl font-bold sm:text-4xl">{t("joinTitle")}</h2>
-            <p className="mt-3 text-white/85">{t("joinSub")}</p>
-            <div className="mt-7">
+            <p className="mt-3 leading-relaxed text-white/85">{t("joinSub")}</p>
+            <div className="mx-auto mt-7 max-w-md">
               <NewsletterForm dark />
             </div>
           </div>

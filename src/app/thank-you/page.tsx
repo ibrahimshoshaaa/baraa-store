@@ -29,14 +29,14 @@ function ThankYouInner() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-20 text-center">
-      <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-pine text-4xl text-gold-light">
+      <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-pine text-4xl text-gold-light shadow-[var(--shadow-button)] ring-4 ring-gold/25">
         ✓
       </span>
-      <h1 className="mt-6 font-display text-4xl font-bold text-pine sm:text-5xl">{t("thankYouTitle")}</h1>
-      <p className="mt-3 text-lg text-ink-soft">{t("thankYouSub")}</p>
+      <h1 className="section-title mt-6">{t("thankYouTitle")}</h1>
+      <p className="section-sub text-lg">{t("thankYouSub")}</p>
 
       {code && (
-        <div className="mx-auto mt-8 max-w-md rounded-[24px] bg-surface p-6 shadow-[0_6px_24px_rgba(11,61,46,0.07)]">
+        <div className="card mx-auto mt-8 max-w-md p-6">
           <p className="text-sm font-semibold uppercase tracking-widest text-ink-soft">{t("orderCode")}</p>
           <p className="mt-2 font-display text-3xl font-bold tracking-wider text-pine" dir="ltr">
             {code}
@@ -57,10 +57,7 @@ function ThankYouInner() {
       )}
 
       <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-ink-soft">{t("thankYouNote")}</p>
-      <Link
-        href="/shop"
-        className="mt-8 inline-block rounded-full bg-pine px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-pine-mid"
-      >
+      <Link href="/shop" className="btn btn-primary mt-8">
         {t("continueShopping")} →
       </Link>
     </div>

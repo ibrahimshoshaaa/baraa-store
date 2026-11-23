@@ -130,7 +130,11 @@ export function Header() {
 
           <nav aria-label="Main" className="hidden items-center gap-7 text-[15px] font-medium text-ink lg:flex">
             {NAV.map((item) => (
-              <Link key={item.href} href={item.href} className="transition hover:text-pine-mid hover:underline underline-offset-4">
+              <Link
+                key={item.href}
+                href={item.href}
+                className="border-b-2 border-transparent pb-0.5 transition hover:border-gold hover:text-pine-mid"
+              >
                 {item.label}
               </Link>
             ))}
@@ -142,14 +146,14 @@ export function Header() {
               type="button"
               aria-label={t("search")}
               onClick={() => setSearchOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition hover:bg-pine/10 sm:h-10 sm:w-10"
+              className="icon-btn"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
             </button>
             <button
               type="button"
               onClick={openCart}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full text-ink transition hover:bg-pine/10 sm:h-10 sm:w-10"
+              className="icon-btn relative"
               aria-label={`${t("openBag")}, ${count}`}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
@@ -164,7 +168,7 @@ export function Header() {
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition hover:bg-pine/10 sm:h-10 sm:w-10 lg:hidden"
+              className="icon-btn lg:hidden"
             >
               {menuOpen ? (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
@@ -176,30 +180,32 @@ export function Header() {
         </div>
 
         {menuOpen && (
-          <nav aria-label="Mobile menu" className="menu-drop border-t border-black/5 bg-surface px-4 py-2 lg:hidden">
+          <nav aria-label="Mobile menu" className="menu-drop border-t border-black/5 bg-surface px-4 pb-4 pt-2 lg:hidden">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-full px-3 py-2.5 font-semibold hover:bg-cream"
+                className="block rounded-2xl px-3 py-3 font-semibold transition hover:bg-cream"
               >
                 {item.label}
               </Link>
             ))}
-            <span className="mt-1 block border-t border-black/5 px-3 pb-2 pt-3 text-sm font-medium text-ink-soft">
+            <p className="mt-2 border-t border-black/5 px-3 pb-2 pt-3 text-xs font-bold uppercase tracking-widest text-ink-soft">
               {t("shopByCategory")}
-            </span>
-            {CATEGORIES.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/shop?category=${c.slug}`}
-                onClick={() => setMenuOpen(false)}
-                className="block rounded-full px-3 py-2 font-medium text-ink-soft hover:bg-cream"
-              >
-                {lang === "ar" ? c.nameAr : c.name}
-              </Link>
-            ))}
+            </p>
+            <div className="grid grid-cols-2 gap-2 px-1">
+              {CATEGORIES.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/shop?category=${c.slug}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-full bg-cream px-3 py-2.5 text-center text-sm font-semibold text-ink transition hover:bg-pine hover:text-white"
+                >
+                  {lang === "ar" ? c.nameAr : c.name}
+                </Link>
+              ))}
+            </div>
           </nav>
         )}
       </header>
@@ -207,7 +213,7 @@ export function Header() {
       {searchOpen && (
         <div className="fixed inset-0 z-50 bg-pine-deep/50 backdrop-blur-sm" onClick={() => setSearchOpen(false)}>
           <div
-            className="mx-auto mt-24 w-[min(560px,calc(100%-2rem))] rounded-[24px] bg-surface p-4 shadow-2xl"
+            className="mx-auto mt-24 w-[min(560px,calc(100%-2rem))] rounded-[28px] border border-black/5 bg-surface p-4 shadow-2xl sm:p-5"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-3 border-b border-black/10 pb-3">

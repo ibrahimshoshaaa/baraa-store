@@ -53,12 +53,9 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-20 text-center">
-        <h1 className="font-display text-4xl font-bold text-pine">{t("checkoutTitle")}</h1>
-        <p className="mt-4 text-ink-soft">{t("checkoutEmpty")}</p>
-        <Link
-          href="/shop"
-          className="mt-7 inline-block rounded-full bg-pine px-8 py-3.5 text-sm font-semibold text-white"
-        >
+        <h1 className="section-title">{t("checkoutTitle")}</h1>
+        <p className="section-sub">{t("checkoutEmpty")}</p>
+        <Link href="/shop" className="btn btn-primary mt-7">
           {t("checkoutGoShop")} →
         </Link>
       </div>
@@ -66,20 +63,20 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-center font-display text-4xl font-bold text-pine">{t("checkoutTitle")}</h1>
-      <div className="mt-10 grid gap-8 lg:grid-cols-5">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+      <h1 className="section-title text-center">{t("checkoutTitle")}</h1>
+      <div className="mt-8 grid gap-8 sm:mt-10 lg:grid-cols-5">
         <form onSubmit={placeOrder} className="lg:col-span-3">
-          <div className="rounded-[24px] bg-surface p-6 shadow-[0_6px_24px_rgba(11,61,46,0.07)]">
+          <div className="card p-6 sm:p-8">
             <h2 className="font-display text-2xl font-bold text-pine">{t("yourDetails")}</h2>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <label className="block sm:col-span-2">
                 <span className="text-sm font-bold">{t("fullName")} *</span>
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t("fullNamePlaceholder")}
-                  className="mt-1.5 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-pine"
+                  className="input mt-1.5"
                 />
               </label>
               <label className="block">
@@ -89,7 +86,7 @@ export default function CheckoutPage() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder={t("phonePlaceholder")}
-                  className="mt-1.5 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-pine"
+                  className="input mt-1.5"
                 />
               </label>
               <label className="block">
@@ -97,7 +94,7 @@ export default function CheckoutPage() {
                 <input
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="mt-1.5 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-pine"
+                  className="input mt-1.5"
                 />
               </label>
               <label className="block sm:col-span-2">
@@ -107,7 +104,7 @@ export default function CheckoutPage() {
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder={t("addressPlaceholder")}
                   rows={2}
-                  className="mt-1.5 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-pine"
+                  className="input mt-1.5"
                 />
               </label>
               <label className="block sm:col-span-2">
@@ -117,29 +114,39 @@ export default function CheckoutPage() {
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder={t("notesPlaceholder")}
                   rows={2}
-                  className="mt-1.5 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-pine"
+                  className="input mt-1.5"
                 />
               </label>
             </div>
           </div>
 
-          <div className="mt-5 rounded-[24px] bg-pine p-6 text-white shadow-[0_6px_24px_rgba(11,61,46,0.15)]">
-            <h2 className="font-display text-xl font-bold">{t("cashOnDelivery")}</h2>
-            <p className="mt-1 text-sm text-white/80">{t("codNote")}</p>
+          <div className="mt-5 flex items-center gap-4 rounded-[24px] bg-pine p-6 text-white shadow-[var(--shadow-card)]">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold-light">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <rect x="2" y="6" width="20" height="12" rx="2" />
+                <circle cx="12" cy="12" r="2.5" />
+                <path d="M6 12h.01M18 12h.01" />
+              </svg>
+            </span>
+            <div>
+              <h2 className="font-display text-xl font-bold">{t("cashOnDelivery")}</h2>
+              <p className="mt-1 text-sm leading-relaxed text-white/80">{t("codNote")}</p>
+            </div>
           </div>
 
           {error && <p className="mt-4 rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p>}
 
           <button
             type="submit"
-            className="mt-6 w-full rounded-full bg-gold py-4 text-base font-bold text-pine-deep transition hover:bg-gold-light"
+            className="btn btn-gold mt-6 w-full text-base"
+            style={{ minHeight: 56 }}
           >
             {t("placeOrder")} — {formatPrice(total, lang)}
           </button>
         </form>
 
         <aside className="lg:col-span-2">
-          <div className="rounded-[24px] bg-surface p-6 shadow-[0_6px_24px_rgba(11,61,46,0.07)]">
+          <div className="card p-6 sm:p-7 lg:sticky lg:top-28">
             <h2 className="font-display text-2xl font-bold text-pine">{t("orderSummary")}</h2>
             <ul className="mt-4 divide-y divide-black/5">
               {items.map((item) => {

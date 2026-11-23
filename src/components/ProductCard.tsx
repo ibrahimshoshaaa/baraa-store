@@ -23,7 +23,7 @@ export function ProductCard({ product }: { product: Product }) {
   const { lang, t } = useLanguage();
 
   return (
-    <article className="group overflow-hidden rounded-[24px] bg-surface shadow-[0_6px_24px_rgba(11,61,46,0.07)] transition hover:shadow-[0_14px_36px_rgba(11,61,46,0.14)]">
+    <article className="card card-hover group flex flex-col overflow-hidden">
       <Link href={`/product/${product.slug}`} className="relative block aspect-[3/4] overflow-hidden bg-cream-deep sm:aspect-[4/5]">
         <Image
           src={product.image}
@@ -33,20 +33,20 @@ export function ProductCard({ product }: { product: Product }) {
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
       </Link>
-      <div className="p-3 sm:p-4">
+      <div className="flex flex-1 flex-col p-4">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">
           {categoryName(product.categorySlug, lang)}
         </p>
         <Link href={`/product/${product.slug}`}>
-          <h3 className="mt-1 font-display text-base font-bold leading-snug text-pine transition hover:text-pine-mid sm:text-lg">
+          <h3 className="mt-1 font-display text-[17px] font-bold leading-snug text-pine transition hover:text-pine-mid sm:text-lg">
             {productName(product, lang)}
           </h3>
         </Link>
-        <div className="mt-2 flex items-center justify-between gap-2 sm:mt-3">
+        <div className="mt-auto flex items-end justify-between gap-2 pt-3">
           <p className="flex flex-wrap items-baseline gap-x-2">
-            <span className="font-display text-base font-bold text-pine sm:text-lg">{formatPrice(product.price, lang)}</span>
+            <span className="whitespace-nowrap font-display text-lg font-bold text-pine">{formatPrice(product.price, lang)}</span>
             {product.compare && (
-              <span className="text-xs text-ink-soft line-through sm:text-sm">{formatPrice(product.compare, lang)}</span>
+              <span className="text-[13px] text-ink-soft line-through">{formatPrice(product.compare, lang)}</span>
             )}
           </p>
           <button
@@ -61,10 +61,10 @@ export function ProductCard({ product }: { product: Product }) {
                 image: product.image,
               })
             }
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-pine text-white transition hover:bg-pine-mid sm:h-10 sm:w-10"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pine text-white shadow-[var(--shadow-button)] transition hover:scale-105 hover:bg-pine-mid"
             aria-label={`${t("addToBag")} — ${productName(product, lang)}`}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
           </button>
         </div>
       </div>

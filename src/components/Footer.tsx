@@ -7,8 +7,8 @@ import { useLanguage } from "@/lib/i18n";
 export function Footer() {
   const { lang, t } = useLanguage();
   return (
-    <footer className="bg-pine-deep text-white/80">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="border-t-2 border-gold/40 bg-pine-deep text-white/80">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Link href="/" className="flex items-center gap-2">
             <MosqueMark />
@@ -19,7 +19,7 @@ export function Footer() {
               </span>
             </span>
           </Link>
-          <p className="mt-4 text-sm">{t("storeTagline")}</p>
+          <p className="mt-4 text-sm leading-relaxed">{t("storeTagline")}</p>
         </div>
 
         <nav aria-label={t("footerQuickLinks")}>
@@ -73,7 +73,7 @@ export function Footer() {
                 key={s.label}
                 href="#"
                 aria-label={s.label}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-gold hover:text-pine-deep"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition hover:bg-gold hover:text-pine-deep"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d={s.path} />
@@ -85,7 +85,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-white/60 sm:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-white/60 sm:flex-row">
           <p>{t("footerRights")}</p>
           <p>
             <Link href="/about" className="hover:text-gold-light">{t("footerPrivacy")}</Link>

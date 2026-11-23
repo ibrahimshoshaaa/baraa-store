@@ -11,22 +11,21 @@ export default function ContactPage() {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
 
-  const inputCls =
-    "mt-1.5 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-pine";
+  const inputCls = "input mt-1.5";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
       <header className="text-center">
-        <h1 className="font-display text-4xl font-bold text-pine sm:text-5xl">{t("contactTitle")}</h1>
-        <p className="mx-auto mt-3 max-w-xl text-ink-soft">{t("contactSub")}</p>
+        <h1 className="section-title">{t("contactTitle")}</h1>
+        <p className="section-sub mx-auto max-w-xl">{t("contactSub")}</p>
       </header>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-5">
-        <aside className="rounded-[24px] bg-pine p-7 text-white lg:col-span-2">
+      <div className="mt-8 grid gap-6 sm:mt-10 lg:grid-cols-5 lg:gap-8">
+        <aside className="rounded-[28px] bg-pine p-7 text-white shadow-[var(--shadow-hero)] lg:col-span-2 sm:p-8">
           <h2 className="font-display text-2xl font-bold">{t("contactInfoTitle")}</h2>
           <dl className="mt-6 space-y-5 text-sm">
             <div>
-              <dt className="font-semibold uppercase tracking-widest text-gold-light">{t("contactEmailLabel")}</dt>
+              <dt className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">{t("contactEmailLabel")}</dt>
               <dd className="mt-1">
                 <a href="mailto:hello@baraa.store" className="hover:underline">
                   hello@baraa.store
@@ -34,17 +33,17 @@ export default function ContactPage() {
               </dd>
             </div>
             <div>
-              <dt className="font-semibold uppercase tracking-widest text-gold-light">{t("contactHoursLabel")}</dt>
+              <dt className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">{t("contactHoursLabel")}</dt>
               <dd className="mt-1 text-white/85">{t("contactHours")}</dd>
             </div>
             <div>
-              <dt className="font-semibold uppercase tracking-widest text-gold-light">{t("contactLocationLabel")}</dt>
+              <dt className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">{t("contactLocationLabel")}</dt>
               <dd className="mt-1 text-white/85">{t("contactLocation")}</dd>
             </div>
           </dl>
         </aside>
 
-        <div className="rounded-[24px] bg-surface p-7 shadow-[0_6px_24px_rgba(11,61,46,0.07)] lg:col-span-3">
+        <div className="card p-6 sm:p-8 lg:col-span-3">
           {sent ? (
             <p className="rounded-2xl bg-pine/10 px-5 py-6 text-center font-semibold text-pine">{t("contactSent")}</p>
           ) : (
@@ -82,7 +81,7 @@ export default function ContactPage() {
               </label>
               <button
                 type="submit"
-                className="rounded-full bg-pine py-3.5 text-sm font-semibold text-white transition hover:bg-pine-mid sm:col-span-2"
+                className="btn btn-primary sm:col-span-2"
               >
                 {t("contactSend")}
               </button>

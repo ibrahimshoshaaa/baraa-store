@@ -34,19 +34,11 @@ export function NewsletterForm({ dark = false }: { dark?: boolean }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder={t("emailPlaceholder")}
-        className={`w-full flex-1 rounded-full px-5 py-3.5 text-sm outline-none ${
-          dark
-            ? "bg-white text-ink placeholder:text-ink-soft"
-            : "border border-black/10 bg-white placeholder:text-ink-soft focus:border-pine"
-        }`}
+        className={`input ${dark ? "" : "focus:border-pine"}`}
       />
       <button
         type="submit"
-        className={`shrink-0 rounded-full px-7 py-3.5 text-sm font-bold transition ${
-          dark
-            ? "bg-gold text-pine-deep hover:bg-gold-light"
-            : "bg-pine text-white hover:bg-pine-mid"
-        }`}
+        className={`btn shrink-0 ${dark ? "btn-gold" : "btn-primary"}`}
       >
         {t("subscribe")}
       </button>

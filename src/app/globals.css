@@ -1,8 +1,29 @@
 @import "tailwindcss";
 
-/* Islamic Clothing Store — fixed light theme: deep emerald, gold, cream. */
+/* Baraa — visual system (redesign 2026-11-23).
+   Fixed light theme: deep pine, gold, warm cream.
+   One spacing scale, one radius scale, one shadow scale, one button system. */
 :root {
   color-scheme: light;
+
+  /* Spacing scale — section rhythm */
+  --section-y: 3.5rem; /* mobile */
+  --section-y-lg: 5rem; /* desktop */
+
+  /* Radius scale */
+  --radius-card: 20px;
+  --radius-card-lg: 28px;
+  --radius-pill: 999px;
+
+  /* Shadow scale — soft, layered, never harsh */
+  --shadow-card: 0 1px 2px rgba(11, 61, 46, 0.05), 0 8px 24px rgba(11, 61, 46, 0.06);
+  --shadow-card-hover: 0 2px 4px rgba(11, 61, 46, 0.06), 0 16px 40px rgba(11, 61, 46, 0.12);
+  --shadow-hero: 0 24px 60px rgba(11, 61, 46, 0.2);
+  --shadow-button: 0 10px 24px rgba(11, 61, 46, 0.22);
+
+  /* Type scale */
+  --text-body: 1rem;
+  --leading-body: 1.65;
 }
 
 @theme {
@@ -10,7 +31,7 @@
   --color-cream-deep: #f7f3e8;
   --color-surface: #fffdf7;
   --color-ink: #12261d;
-  --color-ink-soft: #5c6f64;
+  --color-ink-soft: #55685d;
   --color-pine: #0b3d2e;
   --color-pine-deep: #072a1f;
   --color-pine-mid: #0e4d38;
@@ -29,6 +50,8 @@ body {
   background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   /* Safety net against horizontal scrolling on small screens.
      `clip` (unlike `hidden`) does not create a scroll container,
@@ -60,6 +83,43 @@ h3,
   color: #fff;
 }
 
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Layout primitives ---------- */
+
+/* Page section: consistent vertical rhythm + container. */
+.section {
+  margin-inline: auto;
+  max-width: 72rem; /* max-w-6xl */
+  padding-inline: 1rem;
+  padding-block: var(--section-y);
+}
+@media (min-width: 640px) {
+  .section {
+    padding-block: var(--section-y-lg);
+  }
+}
+
+/* Section header: eyebrow + serif title + optional sub. */
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-pine);
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.section-sub {
+  margin-top: 0.75rem;
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
 /* Section eyebrow: small gold rule + label, like the design. */
 .eyebrow {
   display: inline-flex;
@@ -78,6 +138,166 @@ h3,
   height: 1px;
   width: 1.75rem;
   background: var(--color-gold);
+}
+/* Left-aligned eyebrow: rule only on the leading side. */
+.eyebrow-start::after {
+  display: none;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.8rem 1.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn-primary {
+  background: var(--color-pine);
+  color: #fff;
+  box-shadow: var(--shadow-button);
+}
+.btn-primary:hover {
+  background: var(--color-pine-mid);
+  transform: translateY(-1px);
+}
+.btn-gold {
+  background: var(--color-gold);
+  color: var(--color-pine-deep);
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(201, 162, 39, 0.35);
+}
+.btn-gold:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-1px);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--color-pine);
+  border-color: rgba(11, 61, 46, 0.25);
+}
+.btn-outline:hover {
+  border-color: var(--color-pine);
+  background: rgba(11, 61, 46, 0.06);
+}
+.btn-sm {
+  min-height: 44px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.85rem;
+}
+
+/* ---------- Cards & surfaces ---------- */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid rgba(11, 61, 46, 0.06);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.card-hover {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* 44px icon button (mobile tap target). */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  width: 44px;
+  border-radius: var(--radius-pill);
+  color: var(--color-ink);
+  transition: background-color 0.2s ease;
+}
+.icon-btn:hover {
+  background: rgba(11, 61, 46, 0.08);
+}
+
+/* ---------- Forms ---------- */
+
+.input {
+  width: 100%;
+  height: 48px;
+  padding-inline: 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(11, 61, 46, 0.15);
+  background: #fff;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.input::placeholder {
+  color: var(--color-ink-soft);
+}
+.input:focus {
+  border-color: var(--color-pine);
+  box-shadow: 0 0 0 3px rgba(11, 61, 46, 0.12);
+}
+textarea.input {
+  height: auto;
+  min-height: 96px;
+  padding-block: 0.75rem;
+  resize: vertical;
+}
+
+/* Filter pill (shop). */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(11, 61, 46, 0.12);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.chip:hover {
+  border-color: var(--color-pine);
+  background: rgba(11, 61, 46, 0.06);
+}
+.chip-active {
+  background: var(--color-pine);
+  border-color: var(--color-pine);
+  color: #fff;
+  box-shadow: var(--shadow-button);
+}
+.chip-active:hover {
+  background: var(--color-pine-mid);
 }
 
 /* Bag drawer slide — Tailwind v4 translate utilities use the standalone
